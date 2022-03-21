@@ -18,6 +18,7 @@ from django.urls import path
 from affichage import views
 
 urlpatterns = [
+    path('',views.hello,name='index'),
     path('admin/', admin.site.urls),
     path('hello/',views.hello),
     path('about-us',views.about),
