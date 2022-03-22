@@ -12,6 +12,6 @@ def about(request):
     titre=Titre.objects.all()
     return render(request,'affichage/about-us.html',{'titre':titre})
 def contact_us(request):
-    return HttpResponse('<h1>contactez nous<h1>')
+    return render(request,'affichage/contact-us.html')
 def listing(request):
     return HttpResponse("<p>la liste<p>")

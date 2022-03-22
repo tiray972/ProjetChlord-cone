@@ -1,27 +1,31 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital@1&display=swap');
 
-body {
+body{
 	font-family: 'Noto Serif', serif;
 	background-color: darkslategray;
 	padding: 0;
 	margin: 0;
 	color: honeydew;
+    
 }
 body .page{
 	margin: 20px 80px;
 }
-
+hr{
+    position: sticky;
+    top: 70px;
+}
 nav{
-	
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	
-	top: 0;
-	position: sticky;
-	background-color:  darkslategray;
-	padding: 10px 0px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    top: 0px;
+    background-color: darkslategray;
+    padding: 10px 0px;    
+    position: sticky;
+    margin: 20px 80px;
+
 }
 nav .onglets{
 	display: flex;
@@ -36,21 +40,40 @@ nav .onglets a{
 }
 nav .buttons button{
 	padding: 13px 20px;
-	color: white;
+	color: darkslategray;
 	border: none;
-	background-color: black;
+	background-color: white;
 	font-size: 20px;
 	cursor: pointer;
 	outline: none;
 	font-family: 'Noto Serif', serif;
+    
 }
 header{
 	margin-top: 40px;
-	background: url("https://envole.fr/wp-content/uploads/2021/07/EN-VOL.E-ENchanted-Vision-Of-Life-Entreprises-Feuille-de%CC%81toure%CC%81e-couche%CC%81e-Julie-Emery-Julie-Magie.png");
+	/*background: url("https://envole.fr/wp-content/uploads/2021/07/EN-VOL.E-ENchanted-Vision-Of-Life-Entreprises-Feuille-de%CC%81toure%CC%81e-couche%CC%81e-Julie-Emery-Julie-Magie.png");*/
 	text-align: center;
 	font-size: 60px;
-	padding: 150px;
+	padding: 60px;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 400px;
+    /* background-attachment: fixed; */
+    background-position-y: bottom;
+    color: white;
+    
+}
+header h1{
+    
+}
+footer{
+    background-color: rgb(92, 91, 91);
+    bottom: 0px;
+    padding: 25px 100px;
+    color:  rgb(182, 179, 179);
+}
+footer .colones{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
