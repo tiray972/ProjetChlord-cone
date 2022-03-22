@@ -1,1 +1,9 @@
 * { background: gray}
+aside{
+	background:rgba(10,10,10,0.7);
+	border: 2px grey groove ;
+	float: left;
+	border-radius: 10px;
+	box-shadow: 6px 6px 0px black;
+	width: 170px;
+}
