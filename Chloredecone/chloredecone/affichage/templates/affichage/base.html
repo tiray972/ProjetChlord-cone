@@ -1,10 +1,11 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <title>affichage</title>
         <meta charset='utf-8'>
+        
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <link rel="stylesheet" href="{% static 'affichage/style.css' %}">
         <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -13,8 +14,8 @@
     </head>
     <nav>
         <div class="onglets">
-            <a href="">Accueil</a>
-            <a href="">recherche</a>
+            <a href="{% url 'index' %}">Accueil</a>
+            <a href="{% url 'contact' %}">contactez-nous</a>
         </div>
         <div class="buttons">
             <button> test</button>

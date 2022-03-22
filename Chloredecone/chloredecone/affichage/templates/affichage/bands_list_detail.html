@@ -8,11 +8,23 @@
     
     
     <header>
-        <h1>Recherche</h1>
+        <h1>recherche</h1>
+        
+        
     </header>
     
         <section class="page">
-            
+            <h4> {{ band.name }} </h4>
+        <ul>
+            <li>genre : {{ band.get_genre_display }} </li>
+            <li>Année : {{ band.year_formed }} </li>
+            <li>Actif : {{ band.active|yesno }} </li>
+            {% if band.official_homepage %}
+            <li><a href="{{ band.official_homepage }}"></a>{{ band.official_homepage }} </li>
+            {% endif %}
+        </ul>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi, necessitatibus minus vero <br> deleniti dolores quae vitae excepturi praesentium exercitationem quidem quaerat ullam alias dicta. Iste delectus magnam labore ducimus doloremque!,lo</p>
+                <a href="{% url 'band-list' %}">Retour a tous les groupes</a>         
         </section>
      
         <footer>
