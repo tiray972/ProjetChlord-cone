@@ -6,10 +6,11 @@
 <body>
     <h1>contact-us</h1>
     <hr>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore commodi, natus illum unde blanditiis id veritatis alias doloribus assumenda rerum praesentium esse quisquam, quas, distinctio non consectetur ratione. Molestias, architecto!</p>
-    {% for titre in titre %}
-    <li> {{ titre.name }} </li>
-    {% endfor %}
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Envoyer">
+    </form>
 </body>
     {% endblock %}
 </html>

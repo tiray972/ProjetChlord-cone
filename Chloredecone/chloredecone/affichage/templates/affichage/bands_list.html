@@ -8,18 +8,24 @@
     
     
     <header>
-        <H1>Recherche</H1>
-        <div id="rolling_bar">
-            <input type="text" id="txt" placeholder="Saisir nom ville ou date ">
-            <a href="#" id="btn">
-              <!--<img src="search_image_1.png" alt="img">-->
-            </a>
-      
-          </div>
+        <h1>recherche</h1>
+        {% for band in bands %}
+        <li><a href=" {% url 'bands_list_d' band.id %} ">{{ band.name }}</a></li>
+        {% endfor %}
     </header>
     
         <section class="page">
+            <p>mes groupe de models:
+                <ul>
+                    {% for band in bands %}
             
+                   <li> {{ band.name | upper }}</li>
+                    {% endfor %}
+                </ul>
+                
+                </p>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi, necessitatibus minus vero <br> deleniti dolores quae vitae excepturi praesentium exercitationem quidem quaerat ullam alias dicta. Iste delectus magnam labore ducimus doloremque!,lo</p>
+             
         </section>
      
         <footer>
