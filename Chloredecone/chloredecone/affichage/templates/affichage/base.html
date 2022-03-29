@@ -1,10 +1,37 @@
 {% load static %}
-<html>
+
+<!DOCTYPE html>
+<html lang="fr">
     <head>
         <title>affichage</title>
-        <link rel="stylesheet" href=" {% static 'affichage/style.css' %} ">
+        <meta charset='utf-8'>
+        
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <link rel="stylesheet" href="{% static 'affichage/style.css' %}">
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <!--<link rel='stylesheet' type='text/css' media='screen' href='main.css'>-->
+        
     </head>
-    <body>
-        {% block content %} {% endblock %}
-    </body>
+    <nav>
+        <div class="onglets">
+            <a href="{% url 'index' %}">Accueil</a>
+            <a href="{% url 'contact' %}">contactez-nous</a>
+        </div>
+        <div class="buttons">
+            <button> test</button>
+            <button> test</button>
+        </div>
+    </nav>
+
+    
+     
+    
+    
+    
+        
+        
+    
+    
+   
+    {% block content %} {% endblock %}
 </html>

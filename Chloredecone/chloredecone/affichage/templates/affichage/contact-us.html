@@ -1,0 +1,16 @@
+
+<html>
+    {% extends 'affichage/base.html' %}
+    {% block content %}
+    
+<body>
+    <h1>contact-us</h1>
+    <hr>
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Envoyer">
+    </form>
+</body>
+    {% endblock %}
+</html>

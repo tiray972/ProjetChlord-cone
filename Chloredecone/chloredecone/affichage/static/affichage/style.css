@@ -1,1 +1,135 @@
-* { background: gray}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital@1&display=swap');
+
+body{
+	font-family: 'Noto Serif', serif;
+	background-color: darkslategray;
+	padding: 0;
+	margin: 0;
+	color: honeydew;
+    
+}
+body .page{
+	margin: 20px 80px;
+}
+hr{
+    position: sticky;
+    top: 70px;
+}
+nav{
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    top: 0px;
+    background-color: darkslategray;
+    padding: 10px 0px;    
+    position: sticky;
+    margin: 20px 80px;
+
+}
+nav .onglets{
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 5px;
+	
+}
+.errorlist { margin-bottom: -10px }
+a{
+	text-decoration: none;
+}
+nav .onglets a{
+	margin-right: 20px;
+	text-decoration: none;
+	color: white;
+}
+nav .buttons button{
+	padding: 13px 20px;
+	color: darkslategray;
+	border: none;
+	background-color: white;
+	font-size: 20px;
+	cursor: pointer;
+	outline: none;
+	font-family: 'Noto Serif', serif;
+    
+}
+header{
+	margin-top: 40px;
+	/*background: url("https://envole.fr/wp-content/uploads/2021/07/EN-VOL.E-ENchanted-Vision-Of-Life-Entreprises-Feuille-de%CC%81toure%CC%81e-couche%CC%81e-Julie-Emery-Julie-Magie.png");*/
+	text-align: center;
+	font-size: 60px;
+	padding: 60px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 400px;
+    /* background-attachment: fixed; */
+    background-position-y: bottom;
+    color: white;
+    
+}
+header h1{
+    
+}
+
+footer{
+    background-color: rgb(92, 91, 91);
+    bottom: 0px;
+    padding: 25px 100px;
+    color:  rgb(182, 179, 179);
+}
+footer .colones{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#rolling_bar{
+    position: absolute;
+    left:40%;
+    top: 60%;
+    background: white;
+    padding: 0;
+    height: 40px;
+    border-bottom: darkcyan solid 3px;
+    border-radius: 40px;
+	
+}
+
+#txt{
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    color: black;
+    font-size: 16px;
+    transition: 0.8s;
+    line-height: 43px;
+    width: 3;
+    
+}
+img{
+    height: 30px;
+    width: 30;
+}
+#btn{
+    height: 36px;
+    width: 36px;
+    background-color: darkcyan;
+    border: darkcyan solid 3px;
+    border-radius:50%;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.8s;
+
+}
+
+#rolling_bar:hover > #txt{
+    margin: 0 12px;
+    width: 240px;
+}
+
+#rolling_bar:hover > #btn{
+    transform: rotate(1turn);
+    transition: 0.6s;
+}
