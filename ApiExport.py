@@ -45,7 +45,7 @@ print(r2.headers,'\n')
 with open('donne_extraite.csv','w') as file:
     file.write(r2.text)
     
-
+u=0
 
 '''
 def CreationUrlnaiades(types,region,deb,fin):
