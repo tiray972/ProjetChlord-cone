@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -18,20 +19,32 @@
             <a href="{% url 'contact' %}">contactez-nous</a>
         </div>
         <div class="buttons">
-            <button> test</button>
+            <a href="{% url 'band-list' %}"><button > test</button></a>
             <button> test</button>
         </div>
     </nav>
+        {% block content %} 
 
-    
-     
-    
-    
-    
+        {% endblock %}
+        <footer>
+            <h5> <a href="contact us/"></a></h5>
+            <div class="colones">
+                <div class="colone">
+                    <p>exemple_01</p>
+                    <p>exemple_02</p>
+                    <p>exemple_03</p>
+                </div>
+                <div class="colone"> 
+                 <p>exemple_01</p>
+                 <p>exemple_02</p>
+                 <p>exemple_03</p>
+                </div>
+                <div class="colone"> 
+                 <p>exemple_01</p>
+                 <p>exemple_02</p>
+                 <p>exemple_03</p>
+                </div>
         
-        
-    
-    
-   
-    {% block content %} {% endblock %}
+            </div>
+        </footer>
 </html>
