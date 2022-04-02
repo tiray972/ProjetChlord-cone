@@ -10,10 +10,12 @@
     <header>
         <H1>Recherche</H1>
         <div id="rolling_bar">
-            <input type="text" id="txt" placeholder="Saisir nom ville ou date ">
-            <a href="#" id="btn">
-              <!--<img src="search_image_1.png" alt="img">-->
-            </a>
+            <form action="{% url 'recherche' %}" method=POST>
+                {% csrf_token %}
+            <input type="text" id="txt" placeholder="Saisir nom ville ou date "name='recherche_page'>
+            <button id="btn" type="submit">on va mettre une image mdr</button>
+             
+        </form>
       
           </div>
     </header>

@@ -1,0 +1,16 @@
+<html>
+    {% extends 'affichage/base.html' %}
+    {% block content %}
+    
+<body>
+    <header>
+    {% if data %}
+    <h1>Page de recherche. . . {{ data }} </h1>
+    {% else %}
+    <h1>Aucune recherche faite</h1>
+    {% endif %}
+    </header>
+
+</body>
+    {% endblock %}
+</html>

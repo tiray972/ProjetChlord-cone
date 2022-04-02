@@ -2,25 +2,28 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from affichage.models import Band,Titre
-from affichage.forms import ContactUsForm
+from affichage.forms import ContactUsForm,RechercheForm
 
 
 
 def hello(request):
-    bands=Band.objects.all()
+
     
-    return render(request,'affichage/hello.html',{'bands':bands}
+    return render(request,'affichage/hello.html',{}
     )
 
-
+def search(request):
+    if request.method == 'POST':
+        print(request.POST['recherche_page'],"<---------------")
+        data= request.POST['recherche_page']
+        return render(request,'affichage/search.html',{"data":data})
+    
+    return render(request,'affichage/hello.html')
 
 
 def about(request):
     titre=Titre.objects.all()
     return render(request,'affichage/about-us.html',{'titre':titre})
-
-
-
 
 
 def contact_us(request):
