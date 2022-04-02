@@ -1,6 +1,6 @@
 import code
 from bs4 import BeautifulSoup
-import requests,json
+import requests,json,xmltodict
 import time
 import pandas as pd
 
@@ -54,8 +54,9 @@ def testrequet(url,paramtre=None,hed=None):
 
 def resortirData(url,paramtre=None,hed=None):
     if testrequet(url,paramtre,hed)[1]=='text/xml;charset=utf-8':
-        print(requests.get(testrequet(url,paramtre,hed)[0]).text)
+        return(requests.get(testrequet(url,paramtre,hed)[0]).text)
 
 for elmt in commune['Commune']:
     for i in range(len(commune['Commune'][elmt]['code'])):
-        resortirData(CreationUrlAdes(commune['Commune'][elmt]['code'][i]))
+        xmltojson=xmltodict.parse(resortirData(CreationUrlAdes(commune['Commune'][elmt]['code'][i])))
+        print(json.dumps(xmltojson))
