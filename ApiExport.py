@@ -30,35 +30,32 @@ commune={'Commune': {'Basse-Pointe (97203)': {'code': ['1166ZZ0026/NF8', '1168ZZ
 'Sainte-Anne (97226)': {'code': ['1186ZZ0090/S2']}, 
 'Marin (97217)': {'code': ['1186ZZ0118/SMA4', '1186ZZ0119/CMF1', '1186ZZ0185/P', '1186ZZ0186/PZ', '1186ZZ0187/P2']}}}
 
+def CreationUrlnaiades(types="physicochimie",region="972",deb="28-07-1993",fin="29-03-2022"):
+    url="http://www.naiades.eaufrance.fr/acces-donnees#/"
+    url=url+types+"/resultats/exportCsv?debut="+deb+"&fin="+fin+'&departements='+region
+    return url
+def CreationUrlAdes(code):
+    url="http://services.ades.eaufrance.fr/TableauStatistique/PtEau?Code="+code+"&mode=1&referentiel=Prof"
+    return url
+
+def testrequet(url,paramtre=None,hed=None):
+    if paramtre:
+        if hed:
+            reponce =requests.get(url,params=paramtre,headers=hed)
+        else:
+            reponce =requests.get(url,params=paramtre)
+    else:
+        reponce=requests.get(url)
+    if reponce.ok:
+        return reponce.url,reponce.headers['Content-Type']
+    else:
+        return "L'URL n'as pas bien repondue"
 
 
-df= pd.read_csv("C:/Users/RAYAN/Documents/LICENCE MATH/ALGO/PROJECT/ProjetChlord-cone/Export.csv", sep=';' )
-temp={'Commune': {'Basse-Pointe (97203)': {'code': []},
-                    'Saint-Pierre (97225)': {'code': []},
-                    'Prêcheur (97219)': {'code': []}, 
-                    'Morne-Rouge (97218)': {'code': []},
-                    'Marigot (97216)': {'code': []},
-                    'Lorrain (97214)': {'code': []},
-                    'Carbet (97204)': {'code': []},
-                    'Fort-de-France (97209)': {'code': []},
-                    'Bellefontaine (97234)': {'code': []},
-                    'Saint-Joseph (97224)': {'code': []},
-                    'Gros-Morne (97212)': {'code': []},
-                    'Robert (97222)': {'code': []},
-                    'Trinité (97230)': {'code': []},
-                    'Case-Pilote (97205)': {'code': []},
-                    'Schœlcher (97229)': {'code': []},
-                    'Lamentin (97213)': {'code': []},
-                    'Ducos (97207)': {'code': []},
-                    'François (97210)': {'code': []}, 
-                    'Trois-Îlets (97231)': {'code': []},
-                    "Anses-d'Arlet (97202)": {'code': []},
-                    'Rivière-Pilote (97220)': {'code': []},
-                    'Vauclin (97232)': {'code': []},
-                    'Diamant (97206)': {'code': []},
-                    'Sainte-Luce (97227)': {'code': []},
-                    'Sainte-Anne (97226)': {'code': []},
-                    'Marin (97217)': {'code': []}}}
-for i in range (len(df)):
-    temp['Commune'][df['Commune'].iloc[i]]["code"].append(df["Ancien code national BSS"].iloc[i])
-print(temp)
+def resortirData(url,paramtre=None,hed=None):
+    if testrequet(url,paramtre,hed)[1]=='text/xml;charset=utf-8':
+        print(requests.get(testrequet(url,paramtre,hed)[0]).text)
+
+for elmt in commune['Commune']:
+    for i in range(len(commune['Commune'][elmt]['code'])):
+        resortirData(CreationUrlAdes(commune['Commune'][elmt]['code'][i]))
