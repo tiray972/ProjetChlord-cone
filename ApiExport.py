@@ -1,60 +1,48 @@
+import code
 from bs4 import BeautifulSoup
 import requests,json
 import time
-
-
-def concatenation(deb,fin):
-    url="http://www.naiades.eaufrance.fr/acces-donnees#/physicochimie/resultats?debut="
-    url=url+deb+"&fin="+fin
-    return url
-    
-
-urlexemple='http://www.naiades.eaufrance.fr/acces-donnees#/physicochimie/resultats?debut=18-03-2019&fin=18-03-2022'
-
-r=requests.get(urlexemple)
-print('\n')
-soup=BeautifulSoup(r.text,features="html.parser")
-# print(reponce.status_code)
-# print(reponce.headers)
-# print(reponce.text)
-# print(reponce.headers)
-titre=soup.find('title')
-resultat=soup.find_all('div')
-print(titre)
-for elm in resultat:
-    print(elm.content,'\n')
-
-
 import pandas as pd
-import csv
 
-# r=requests.get("http://services.ades.eaufrance.fr/ServicesPublic/ServicesAdesTableau/1/DataSheet_1.asmx?op=GetCapabilities")
-print('\n')
-dico= { 'service':'ADES:Fiche', 'request' :'GetCapabilities', 'version' :'1.0.0'}
-hed={'Content-Type':'application/xml'}
-url1 = 'https://ades.eaufrance.fr'
-# donnees = json.loads()
-url='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc.csv'
-r2 = requests.get(url)
-# j = requests.get(url1,params=dico,headers=hed) 
-
-print(r2.headers,'\n')
-# print(j.headers['Content-Type'])
-
-
-with open('donne_extraite.csv','w') as file:
-    file.write(r2.text)
-    
-u=0
-
-'''
-def CreationUrlnaiades(types,region,deb,fin):
-    url="http://www.naiades.eaufrance.fr/acces-donnees#/physicochimie"
-    url=url+"/resultats/exportCsv?debut="+deb+"&fin="+fin+'&departements='
-    return url
-pointDeau_='http://services.ades.eaufrance.fr/adesfiche/?version=1.0.0&service=ades%3AFiche&request=getFichepointeau&code=BSS002NMFY'
-
-nul='http://ADES:Fiche/request=GetFicheReseau/version=1.0.0/code=0000000029'
-urlexemple='http://naiades.eaufrance.fr/acces-donnees#/physicochimie/resultats/exportCsv?debut=08-11-2013&fin=08-11-2016&departements=31&fractions=145'
-'''
-'\n'
+commune={
+"Basse-Pointe":{"code":[]},
+"Saint-Pierre":{"code":[]},
+"Prêcheur":{"code":[]},
+"Morne-Rouge":{"code":[]},
+"Marigot":{"code":[]},
+"Lorrain":{"code":[]},
+"Carbet":{"code":[]},
+"Fort-de-France":{"code":[]},
+"Bellefontaine":{"code":[]},
+"Saint-Pierre":{"code":[]},
+}
+df= pd.read_csv("C:/Users/RAYAN/Documents/LICENCE MATH/ALGO/PROJECT/ProjetChlord-cone/Export.csv", sep=';' )
+temp={'Commune': {'Basse-Pointe (97203)': {'code': []},
+                    'Saint-Pierre (97225)': {'code': []},
+                    'Prêcheur (97219)': {'code': []}, 
+                    'Morne-Rouge (97218)': {'code': []},
+                    'Marigot (97216)': {'code': []},
+                    'Lorrain (97214)': {'code': []},
+                    'Carbet (97204)': {'code': []},
+                    'Fort-de-France (97209)': {'code': []},
+                    'Bellefontaine (97234)': {'code': []},
+                    'Saint-Joseph (97224)': {'code': []},
+                    'Gros-Morne (97212)': {'code': []},
+                    'Robert (97222)': {'code': []},
+                    'Trinité (97230)': {'code': []},
+                    'Case-Pilote (97205)': {'code': []},
+                    'Schœlcher (97229)': {'code': []},
+                    'Lamentin (97213)': {'code': []},
+                    'Ducos (97207)': {'code': []},
+                    'François (97210)': {'code': []}, 
+                    'Trois-Îlets (97231)': {'code': []},
+                    "Anses-d'Arlet (97202)": {'code': []},
+                    'Rivière-Pilote (97220)': {'code': []},
+                    'Vauclin (97232)': {'code': []},
+                    'Diamant (97206)': {'code': []},
+                    'Sainte-Luce (97227)': {'code': []},
+                    'Sainte-Anne (97226)': {'code': []},
+                    'Marin (97217)': {'code': []}}}
+for i in range (len(df)):
+    temp['Commune'][df['Commune'].iloc[i]]["code"].append(df["Ancien code national BSS"].iloc[i])
+print(temp)
