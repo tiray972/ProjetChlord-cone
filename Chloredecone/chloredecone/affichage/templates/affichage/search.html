@@ -13,6 +13,10 @@
     {% for villes in ville %}
         <p> {{ villes | upper }} </p>
     {% endfor %}
+    <table>
+        {% for element in JSON %}
+        <p>{{ element['STAT'] }}</p>
+        {% endfor %}
     
     </header>
 
