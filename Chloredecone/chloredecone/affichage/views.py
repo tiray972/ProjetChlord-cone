@@ -3,7 +3,8 @@ from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from affichage.models import Band,Titre,releve_Ville
 from affichage.forms import ContactUsForm,RechercheForm
-
+# importation local
+from fonction.ApiExport import jsonAffiche
 
 
 def hello(request):
@@ -21,7 +22,9 @@ def search(request):
         
         print(recherche,"<---------------------")
         code = ville[0].data['Commune'][recherche.strip()]['code']
-        
+        JSON=[]
+        for elm in code:
+            JSON.append(jsonAffiche(elm))
         return render(request,'affichage/search.html',{"data":recherche,'ville':code})
     
     return render(request,'affichage/hello.html')
