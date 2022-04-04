@@ -9,6 +9,10 @@
     {% else %}
     <h1>Aucune recherche faite</h1>
     {% endif %}
+    <hr>
+    {% for villes in ville %}
+        <p> {{ villes | upper }} </p>
+    {% endfor %}
     </header>
 
 </body>

@@ -1,21 +1,27 @@
 
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
-from affichage.models import Band,Titre
+from affichage.models import Band,Titre,releve_Ville
 from affichage.forms import ContactUsForm,RechercheForm
 
 
 
 def hello(request):
-
-    return render(request,'affichage/hello.html',{}
+    ville=['Basse-Pointe (97203)', 'Saint-Pierre (97225)', 'Prêcheur (97219)', 'Morne-Rouge (97218)', 'Marigot (97216)', 'Lorrain (97214)', 'Carbet (97204)', 'Fort-de-France (97209)', 'Bellefontaine (97234)', 'Saint-Joseph (97224)', 'Gros-Morne (97212)', 'Robert (97222)', 'Trinité (97230)', 'Case-Pilote (97205)', 'Schœlcher (97229)', 'Lamentin (97213)', 'Ducos (97207)', 'François (97210)', 'Trois-Îlets (97231)', "Anses-d'Arlet (97202)", 'Rivière-Pilote (97220)', 'Vauclin (97232)', 'Diamant (97206)', 'Sainte-Luce (97227)', 'Sainte-Anne (97226)', 'Marin (97217)']
+    return render(request,'affichage/hello.html',{"ville":ville}
     )
 
 def search(request):
+    
     if request.method == 'POST':
         print(request.POST['recherche_page'],"<---------------")
-        data= request.POST['recherche_page']
-        return render(request,'affichage/search.html',{"data":data})
+        recherche= request.POST['recherche_page']
+
+        ville=releve_Ville.objects.all()
+        
+        print(recherche,"<---------------------")
+
+        return render(request,'affichage/search.html',{"data":recherche,'ville':ville[0].data['Commune'][recherche.strip()]['code']})
     
     return render(request,'affichage/hello.html')
 

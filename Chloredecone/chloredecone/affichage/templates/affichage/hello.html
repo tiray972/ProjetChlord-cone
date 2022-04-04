@@ -12,9 +12,16 @@
         <div id="rolling_bar">
             <form action="{% url 'recherche' %}" method=POST>
                 {% csrf_token %}
+                <select name="recherche_page" id=""> 
+                    {% for i in ville %}
+                    <option value=" {{i}} "> {{i}}</option>
+                    {% endfor %}
+                    
+                </select>
+                <button id="btn" type="submit" >on va mettre une image mdr</button>
                 
-                <input type="text" id="txt" placeholder="Saisir nom ville ou date "name='recherche_page'>
-            <button id="btn" type="submit">on va mettre une image mdr</button>
+               <!-- <input type="text" id="txt" placeholder="Saisir nom ville ou date "name='recherche_page'>-->
+            
              
                 
 
