@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from affichage.models import Band,Titre,releve_Ville
 from affichage.forms import ContactUsForm,RechercheForm
 # importation local
-from fonction.ApiExport import jsonAffiche
+from affichage.fonction.ApiExport import jsonAffiche
 
 
 def hello(request):
@@ -25,7 +25,7 @@ def search(request):
         JSON=[]
         for elm in code:
             JSON.append(jsonAffiche(elm))
-        return render(request,'affichage/search.html',{"data":recherche,'ville':code})
+        return render(request,'affichage/search.html',{"data":recherche,'ville':code,'JSON':JSON})
     
     return render(request,'affichage/hello.html')
 
