@@ -1,3 +1,4 @@
+from email.policy import default
 from pyexpat import model
 from django.db import models
 from django.core.validators import MaxValueValidator,MinValueValidator
@@ -27,3 +28,6 @@ class Titre(models.Model):
         validators=[MinValueValidator(1900),MaxValueValidator(2022)])
     def __str__(self):
         return f'{self.titre}'
+
+class releve_Ville(models.Model):
+    data= models.JSONField()
