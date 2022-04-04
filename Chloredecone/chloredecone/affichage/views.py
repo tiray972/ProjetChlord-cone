@@ -8,7 +8,6 @@ from affichage.forms import ContactUsForm,RechercheForm
 
 def hello(request):
 
-    
     return render(request,'affichage/hello.html',{}
     )
 
@@ -16,7 +15,6 @@ def search(request):
     if request.method == 'POST':
         print(request.POST['recherche_page'],"<---------------")
         data= request.POST['recherche_page']
-        
         return render(request,'affichage/search.html',{"data":data})
     
     return render(request,'affichage/hello.html')
