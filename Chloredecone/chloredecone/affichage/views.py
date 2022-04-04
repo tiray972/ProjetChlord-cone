@@ -20,8 +20,9 @@ def search(request):
         ville=releve_Ville.objects.all()
         
         print(recherche,"<---------------------")
+        code = ville[0].data['Commune'][recherche.strip()]['code']
 
-        return render(request,'affichage/search.html',{"data":recherche,'ville':ville[0].data['Commune'][recherche.strip()]['code']})
+        return render(request,'affichage/search.html',{"data":recherche,'ville':code})
     
     return render(request,'affichage/hello.html')
 
