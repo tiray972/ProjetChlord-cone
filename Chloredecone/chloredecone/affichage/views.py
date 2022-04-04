@@ -21,7 +21,7 @@ def search(request):
         
         print(recherche,"<---------------------")
         code = ville[0].data['Commune'][recherche.strip()]['code']
-
+        
         return render(request,'affichage/search.html',{"data":recherche,'ville':code})
     
     return render(request,'affichage/hello.html')
