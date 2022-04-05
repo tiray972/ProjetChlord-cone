@@ -1,4 +1,5 @@
 import code
+import io
 from bs4 import BeautifulSoup
 import requests,json,xmltodict
 import time
@@ -58,7 +59,6 @@ def resortirData(url,paramtre=None,hed=None):
         return(requests.get(testrequet(url,paramtre,hed)[0]).text)
 
 def jsonAffiche(code):
-    return json.dumps(xmltodict.parse(resortirData(CreationUrlAdes(code=code))))
-
+    return json.loads(json.dumps(xmltodict.parse(resortirData(CreationUrlAdes(code=code)))))
 
 
