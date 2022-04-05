@@ -13,14 +13,23 @@
     {% for villes in ville %}
         <p> {{ villes | upper }} </p>
     {% endfor %}
-    <table>
-        {% for element,gg in JSON.items %}
+    <table border="2">
+        {% for code,jsson in JSON.items %}
 
-          {% for item in gg.items %}
+          {% for key,dict in jsson.items %}
           
-          <p>{{y|get_value:item.Stat}}</p>
+          {% for valu in dict.values %}
+            <tr>
+          {% for min,val in valu.items %}
+            <td>{{min}}</td>
+                <td>{{val}}</td>
+          
+        {% endfor %}
+            </tr>
+          {% endfor %}
         {% endfor %}
         {%endfor%}
+        </table>
     
     </header>
 

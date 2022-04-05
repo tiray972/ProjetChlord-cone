@@ -26,7 +26,8 @@ def search(request):
         for elm in code:
             JSON[elm]=jsonAffiche(elm)
             
-        print(type(JSON.items()),'<-----------------------------------')
+            print(type(JSON[elm]),'<-----------------------------------')
+            
         return render(request,'affichage/search.html',{"data":recherche,'ville':code,'JSON':JSON})
     
     return render(request,'affichage/hello.html')
