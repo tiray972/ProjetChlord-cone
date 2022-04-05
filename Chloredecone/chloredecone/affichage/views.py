@@ -22,9 +22,11 @@ def search(request):
         
         print(recherche,"<---------------------")
         code = ville[0].data['Commune'][recherche.strip()]['code']
-        JSON=[]
+        JSON={}
         for elm in code:
-            JSON.append(jsonAffiche(elm))
+            JSON[elm]=jsonAffiche(elm)
+            
+        print(type(JSON.items()),'<-----------------------------------')
         return render(request,'affichage/search.html',{"data":recherche,'ville':code,'JSON':JSON})
     
     return render(request,'affichage/hello.html')

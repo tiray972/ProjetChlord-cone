@@ -14,9 +14,13 @@
         <p> {{ villes | upper }} </p>
     {% endfor %}
     <table>
-        {% for element in JSON %}
-        <p>{{ element['STAT'] }}</p>
+        {% for element,gg in JSON.items %}
+
+          {% for item in gg.items %}
+          
+          <p>{{y|get_value:item.Stat}}</p>
         {% endfor %}
+        {%endfor%}
     
     </header>
 
