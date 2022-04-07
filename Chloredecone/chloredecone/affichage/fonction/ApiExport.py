@@ -66,9 +66,12 @@ def donnejson(url,param):
 def jsonAffiche(code):
     return json.loads(json.dumps(xmltodict.parse(resortirData(CreationUrlAdes(code=code)))))
 dico={'code_departement':'972'}
+ades='http://services.ades.eaufrance.fr/datasheet/?' 
 httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
-# s=requests.get(httpjson,dico)
+parr={'service':'ADES:Tableau','request':'GetCapabilities','version':'1.0.0' }
+# s=requests.get(httpjson,dico),'code':'1186ZZ0185/P','mode':'1' 
 # print(s.text)
-l=donnejson(httpjson,dico)
-file =open('json.txt','w+')
-file.write(str(l))
+# l=donnejson(httpjson,dico),,'parameter':'1301'
+j=requests.get(ades,parr)
+print(j.headers)
+print(j.url)
