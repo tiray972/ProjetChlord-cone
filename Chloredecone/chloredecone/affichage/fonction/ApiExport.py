@@ -1,6 +1,7 @@
 import code
 import io
 from bs4 import BeautifulSoup
+from django import http
 import requests,json,xmltodict
 import time
 import pandas as pd
@@ -55,10 +56,19 @@ def testrequet(url,paramtre=None,hed=None):
 
 def resortirData(url,paramtre=None,hed=None):
 
-    if testrequet(url,paramtre,hed)[1]=='text/xml;charset=utf-8':
+    if testrequet(url,paramtre,hed)[1]=='text/xml;charset=utf-8'  :
         return(requests.get(testrequet(url,paramtre,hed)[0]).text)
 
+def donnejson(url,param):
+    if testrequet(url,paramtre=param)[1]=='application/json;charset=UTF-8':
+        return json.loads(requests.get(testrequet(url,paramtre=param)[0]).text)
+        
 def jsonAffiche(code):
     return json.loads(json.dumps(xmltodict.parse(resortirData(CreationUrlAdes(code=code)))))
-
-
+dico={'code_departement':'972'}
+httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+# s=requests.get(httpjson,dico)
+# print(s.text)
+l=donnejson(httpjson,dico)
+file =open('json.txt','w+')
+file.write(str(l))
