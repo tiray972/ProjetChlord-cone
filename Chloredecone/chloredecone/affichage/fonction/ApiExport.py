@@ -66,12 +66,17 @@ def donnejson(url,param):
 def jsonAffiche(code):
     return json.loads(json.dumps(xmltodict.parse(resortirData(CreationUrlAdes(code=code)))))
 dico={'code_departement':'972'}
-ades='http://services.ades.eaufrance.fr/datasheet/?' 
+adesDATA='http://services.ades.eaufrance.fr/datasheet/?' 
+adesgra='http://services.ades.eaufrance.fr/adesgraphiques/?'
+adesmeta='http://services.ades.eaufrance.fr/metadata/?'
+ades='http://services.ades.eaufrance.fr/disceau/? '
+adessyn='http://services.ades.eaufrance.fr/ServicesPublic/ServicesAdesTableau/1/DataSheet_1.ashx? '
 httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
-parr={'service':'ADES:Tableau','request':'GetCapabilities','version':'1.0.0' }
-# s=requests.get(httpjson,dico),'code':'1186ZZ0185/P','mode':'1' 
+parr={'service':'SANDRE:Metadata','request':'GetMetadataSandre','version':'1.0.0' }
+# s=requests.get(httpjson,dico) ,'mode':'1' ,'referentiel':'NGF','code':'1186ZZ0185/P'
 # print(s.text)
 # l=donnejson(httpjson,dico),,'parameter':'1301'
-j=requests.get(ades,parr)
+j=requests.get(adesmeta,parr)
 print(j.headers)
 print(j.url)
+# print(CreationUrlAdes('1186ZZ0185/P'))
