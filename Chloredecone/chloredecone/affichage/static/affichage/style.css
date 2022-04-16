@@ -82,16 +82,15 @@ footer .colones{
     flex-wrap: wrap;
     justify-content: space-between;
 }
-#rolling_bar{
+#rolling_bar {
     position: absolute;
-    left:40%;
+    left: 40%;
     top: 60%;
-    background: white;
+    /* background: white; */
     padding: 0;
     height: 40px;
-    border-bottom: darkcyan solid 3px;
-    border-radius: 40px;
-	
+    /* border-bottom: darkcyan solid 3px; */
+    /* border-radius: 40px; */
 }
 
 #txt{
