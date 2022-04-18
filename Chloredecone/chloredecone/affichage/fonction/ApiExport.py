@@ -1,5 +1,4 @@
-import code
-import io
+
 from bs4 import BeautifulSoup
 from django import http
 import requests,json,xmltodict
@@ -41,6 +40,14 @@ def CreationUrlnaiades(types="physicochimie",region="972",deb="28-07-1993",fin="
 def CreationUrlAdes(code):
     url="http://services.ades.eaufrance.fr/TableauStatistique/PtEau?Code="+code+"&mode=1&referentiel=Prof"
     return url
+#creation de d'url hubeau
+def creationDurlHubeau(code_departement='972',code_station=''):
+    Parametre={'code_departement':code_departement,"code_station":code_station}
+    Base ='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+    url=requests.get(Base,params=Parametre)
+    return url.url
+#
+#
 #les trois fontion suvante nous sere a pçour resortir les page xml que l'on obtien avec les request rest fourni part ades
 def testrequet(url,paramtre=None,hed=None):
     if paramtre:
@@ -95,3 +102,4 @@ j=requests.get(adesmeta,parr)
 print(j.headers)
 print(j.url)
 # print(CreationUrlAdes('1186ZZ0185/P'))
+print(creationDurlHubeau())
