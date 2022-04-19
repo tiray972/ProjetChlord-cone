@@ -123,7 +123,10 @@ img{
     transition: 0.8s;
 
 }
-
+#blc-forms{
+    position:center;
+    display: block;
+}
 #rolling_bar:hover > #txt{
     margin: 0 12px;
     width: 240px;
