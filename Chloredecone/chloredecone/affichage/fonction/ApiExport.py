@@ -98,8 +98,8 @@ parr={'service':'SANDRE:Metadata',
 # s=requests.get(httpjson,dico) ,
 # print(s.text)
 # l=donnejson(httpjson,dico),,'parameter':'1301'
-j=requests.get(adesmeta,parr)
-print(j.headers)
-print(j.url)
+j=json.loads(requests.get(creationDurlHubeau()).text)
+print(j['data'][0]['libelle_station'])
+print()
 # print(CreationUrlAdes('1186ZZ0185/P'))
-print(creationDurlHubeau())
+print()
