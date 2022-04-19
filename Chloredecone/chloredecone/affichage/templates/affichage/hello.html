@@ -18,8 +18,24 @@
                     {% endfor %}
                     
                 </select>
+                <select name="recherche_page_date_debut" id=""> 
+                    {% for i in date %}
+                    <option value=" {{i}} "> {{i}}</option>
+                    {% endfor %}
+                    
+                </select>
+                <select name="recherche_page_date_fin" id=""> 
+                    {% for i in date %}
+                    <option value=" {{i}} "> {{i}}</option>
+                    {% endfor %}
+                    
+                </select>
                 <button id="btn" type="submit" >on va mettre une image mdr</button>
                 
+                    
+                <input id="ss_terr" type="checkbox" name="sous_terrain" checked><label for="ss_terr"></label>
+                
+                  
                <!-- <input type="text" id="txt" placeholder="Saisir nom ville ou date "name='recherche_page'>-->
             
              

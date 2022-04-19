@@ -8,8 +8,9 @@ from affichage.fonction.ApiExport import jsonAffiche
 
 
 def hello(request):
+    date  = [1990+i for i in range(32)]
     ville=['Basse-Pointe (97203)', 'Saint-Pierre (97225)', 'Prêcheur (97219)', 'Morne-Rouge (97218)', 'Marigot (97216)', 'Lorrain (97214)', 'Carbet (97204)', 'Fort-de-France (97209)', 'Bellefontaine (97234)', 'Saint-Joseph (97224)', 'Gros-Morne (97212)', 'Robert (97222)', 'Trinité (97230)', 'Case-Pilote (97205)', 'Schœlcher (97229)', 'Lamentin (97213)', 'Ducos (97207)', 'François (97210)', 'Trois-Îlets (97231)', "Anses-d'Arlet (97202)", 'Rivière-Pilote (97220)', 'Vauclin (97232)', 'Diamant (97206)', 'Sainte-Luce (97227)', 'Sainte-Anne (97226)', 'Marin (97217)']
-    return render(request,'affichage/hello.html',{"ville":ville}
+    return render(request,'affichage/hello.html',{"ville":ville,'date':date}
     )
 
 def search(request):
@@ -17,16 +18,24 @@ def search(request):
     if request.method == 'POST':
         print(request.POST['recherche_page'],"<---------------")
         recherche= request.POST['recherche_page']
+        date_debut=request.POST['recherche_page_date_debut']
+        date_fin=request.POST['recherche_page_date_fin']
+        try:
+            ss_terr=request.POST['sous_terrain']
+        except:
+            ss_terr=0
+            pass
+        
 
         ville=releve_Ville.objects.all()
         
-        print(recherche,"<---------------------")
+        print(date_debut,'--',date_fin,"<---------------------",ss_terr)
         code = ville[0].data['Commune'][recherche.strip()]['code']
         JSON={}
         for elm in code:
             JSON[elm]=jsonAffiche(elm)
             
-            print(type(JSON[elm]),'<-----------------------------------')
+            #print(type(JSON[elm]),'<-----------------------------------')
             
         return render(request,'affichage/search.html',{"data":recherche,'ville':code,'JSON':JSON})
     

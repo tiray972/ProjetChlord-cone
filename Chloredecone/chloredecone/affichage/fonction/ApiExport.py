@@ -1,10 +1,10 @@
-import code
-import io
+
 from bs4 import BeautifulSoup
+from django import http
 import requests,json,xmltodict
 import time
 import pandas as pd
-
+#les commune avec tout leur code de point d'eau ressencer par ades(sandres)
 commune={'Commune': {'Basse-Pointe (97203)': {'code': ['1166ZZ0026/NF8', '1168ZZ0043/MBF1', '1168ZZ0054/PZ']},
  'Saint-Pierre (97225)': {'code': ['1167ZZ0023/RBS1', '1167ZZ0029/SP1', '1167ZZ0045/NF6']},
 'Prêcheur (97219)': {'code': ['1167ZZ0024/PRS1']},
@@ -30,15 +30,25 @@ commune={'Commune': {'Basse-Pointe (97203)': {'code': ['1166ZZ0026/NF8', '1168ZZ
 'Sainte-Luce (97227)': {'code': ['1185ZZ0120/PZ']}, 
 'Sainte-Anne (97226)': {'code': ['1186ZZ0090/S2']}, 
 'Marin (97217)': {'code': ['1186ZZ0118/SMA4', '1186ZZ0119/CMF1', '1186ZZ0185/P', '1186ZZ0186/PZ', '1186ZZ0187/P2']}}}
-
+#creation dune url qui pour etre utiliser par lutilisateur pour avoir acces sur le site niades 
 def CreationUrlnaiades(types="physicochimie",region="972",deb="28-07-1993",fin="29-03-2022"):
     url="http://www.naiades.eaufrance.fr/acces-donnees#/"
     url=url+types+"/resultats/exportCsv?debut="+deb+"&fin="+fin+'&departements='+region
     return url
+    
+# la nous avonr la fonction qui fait une request a partir du code du point d'eau telechart le xml 
 def CreationUrlAdes(code):
     url="http://services.ades.eaufrance.fr/TableauStatistique/PtEau?Code="+code+"&mode=1&referentiel=Prof"
     return url
-
+#creation de d'url hubeau
+def creationDurlHubeau(code_departement='972',code_station=''):
+    Parametre={'code_departement':code_departement,"code_station":code_station}
+    Base ='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+    url=requests.get(Base,params=Parametre)
+    return url.url
+#
+#
+#les trois fontion suvante nous sere a pçour resortir les page xml que l'on obtien avec les request rest fourni part ades
 def testrequet(url,paramtre=None,hed=None):
     if paramtre:
         if hed:
@@ -51,14 +61,45 @@ def testrequet(url,paramtre=None,hed=None):
         return reponce.url,reponce.headers['Content-Type']
     else:
         return "L'URL n'as pas bien repondue"
-
-
+#apres avoir tester la requeet nous ressortons les donnée si il sagit bien de text/xml 
 def resortirData(url,paramtre=None,hed=None):
-
-    if testrequet(url,paramtre,hed)[1]=='text/xml;charset=utf-8':
+    if testrequet(url,paramtre,hed)[1]=='text/xml;charset=utf-8'  :
         return(requests.get(testrequet(url,paramtre,hed)[0]).text)
-
+# puit ensuite on converti le fichier en json pour pouvoir lexploiter plus aissement  
 def jsonAffiche(code):
     return json.loads(json.dumps(xmltodict.parse(resortirData(CreationUrlAdes(code=code)))))
+#---------------------------------------------------------------------------------------------------------------------------
 
+#hubeau nous permet de resortir directemnt un fichier json ou un document csv naienmoins nous avons 
+# que 1000 ligne de donnée par requete 
+httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+dico={'code_departement':'972'}
+def donnejson(url,param):
+    if testrequet(url,paramtre=param)[1]=='application/json;charset=UTF-8':
+        return json.loads(requests.get(testrequet(url,paramtre=param)[0]).text)
+  
 
+# ades ayan plusieur service jai repertorier les base modal pour chaque request
+# car elle change a chaaque service diferent (sercvice graphique ,metadata,...)
+# de plus il y as des parrametre differrent parn service utiliser 
+# car nous ne somme par satifait du du service tableau statitique qui ne resort
+#  que une date de premier prelevement, une de dernier ,une moyenne.
+adesDATA='http://services.ades.eaufrance.fr/datasheet/?' 
+adesgra='http://services.ades.eaufrance.fr/adesgraphiques/?'
+adesmeta='http://services.ades.eaufrance.fr/metadata/?'
+ades='http://services.ades.eaufrance.fr/disceau/? '
+adessyn='http://services.ades.eaufrance.fr/ServicesPublic/ServicesAdesTableau/1/DataSheet_1.ashx? '
+#la variable parr nous montre a peut prés les parrametre utiliser lors des request d'ades 
+parr={'service':'SANDRE:Metadata',
+        'request':'GetMetadataSandre',
+        'version':'1.0.0','mode':'1' ,
+        'referentiel':'NGF',
+        'code':'1186ZZ0185/P' }
+# s=requests.get(httpjson,dico) ,
+# print(s.text)
+# l=donnejson(httpjson,dico),,'parameter':'1301'
+j=requests.get(adesmeta,parr)
+print(j.headers)
+print(j.url)
+# print(CreationUrlAdes('1186ZZ0185/P'))
+print(creationDurlHubeau())
