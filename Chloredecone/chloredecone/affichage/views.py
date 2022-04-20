@@ -41,6 +41,8 @@ def search(request):
     
     return render(request,'affichage/hello.html')
 
+def maping(request):
+    return render(request,'affichage/map.html')
 
 def about(request):
     titre=Titre.objects.all()
