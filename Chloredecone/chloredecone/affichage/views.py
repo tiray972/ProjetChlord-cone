@@ -5,6 +5,7 @@ from affichage.models import Band,Titre,releve_Ville
 from affichage.forms import ContactUsForm,RechercheForm
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche
+from affichage.fonction.carte import mapmaxmin
 
 
 def hello(request):
@@ -48,6 +49,9 @@ def about(request):
     titre=Titre.objects.all()
     return render(request,'affichage/about-us.html',{'titre':titre})
 
+def presentation(request):
+    map={'m':mapmaxmin}
+    return render(request,'affichage/amap.html',map)
 
 def contact_us(request):
     form = ContactUsForm()
