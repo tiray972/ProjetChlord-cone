@@ -1,0 +1,16 @@
+<html>
+    {% extends 'affichage/base.html' %}
+    {% block content %}
+    
+<body>
+    <h1>Upload</h1>
+    <hr>
+    <form method=POST enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">upload</button>
+    </form>
+    
+</body>
+    {% endblock %}
+</html>

@@ -17,5 +17,5 @@ def mapmaxmin():
                                                 text_color='red',
                                                 inner_icon_style='margin-top:0px;')).add_to(map_enum_icons)
     #     number reste a changer mtre des valeur
-    map_enum_icons.save('/Users/RAYAN/Documents/LICENCE MATH/ALGO/PROJECT/ProjetChlord-cone/Chloredecone/chloredecone/affichage/templates/affichage/map.html')
+    map_enum_icons.save('./affichage/templates/affichage/map.html')
     return map_enum_icons._repr_html_()

@@ -2,7 +2,7 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from affichage.models import Band,Titre,releve_Ville
-from affichage.forms import ContactUsForm,RechercheForm
+from affichage.forms import ContactUsForm,RechercheForm,summary_pdf
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche
 from affichage.fonction.carte import mapmaxmin
@@ -65,7 +65,13 @@ def contact_us(request):
 
 
 
-
+def upload_file(request):
+    if request.method == "POST":
+        form = summary_pdf(request.POST,request.FILES)
+        if form.is_valid():
+            return redirect(hello)
+    else : form = summary_pdf()
+    return render(request, "affichage/upload.html",{"form":form})
 
 def listing(request):
     return HttpResponse("<p>la liste<p>")

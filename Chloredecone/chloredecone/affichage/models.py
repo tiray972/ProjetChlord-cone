@@ -36,3 +36,9 @@ class releve_Ville(models.Model):
 
     def __str__(self):
         return f'{self.nom}'
+class summary_pdf(models.Model):
+    titre = models.CharField(default="",max_length=100)
+    file=models.FileField(upload_to="ville/pdf/")
+    
+    def __str__(self):
+        return f'{self.titre}'
