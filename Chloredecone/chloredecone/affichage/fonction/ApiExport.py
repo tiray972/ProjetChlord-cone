@@ -98,13 +98,14 @@ parr={'service':'SANDRE:Metadata',
 # s=requests.get(httpjson,dico) ,
 # print(s.text)
 # l=donnejson(httpjson,dico),,'parameter':'1301'
+'''#utiliser plus tard
 j=json.loads(requests.get(creationDurlHubeau()).text)
 print(j['data'][0]['libelle_station'],end='')
 print(' |prelevé le :',j['data'][0]['date_prelevement'])
 print(j['data'][0]['code_unite'],j['data'][0]['symbole_unite'])
 print(' libelle parametre :',j['data'][0]['libelle_parametre'])
-
+'''
 
 # print(j['data'][0].keys())
 # print(CreationUrlAdes('1186ZZ0185/P'))
-print(creationDurlHubeau())
+# print(creationDurlHubeau())
