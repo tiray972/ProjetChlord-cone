@@ -1,12 +1,14 @@
 <html>
     {% extends 'affichage/base.html' %}
     {% block content %}
-    
-<body>
-    <div >
-        <h3>geo mapping</h3>
-        {{m |safe}}
-    </div>
-</body>
+    <header>
+        
+            <h1>Geo Mapping</h1>
+            <hr>
+        <div class="container_map">
+            {{m |safe}}
+        </div>
+    </header>
+
     {% endblock %}
-</html>
+</html> 
