@@ -1,13 +1,21 @@
 import json
+from operator import ne
+from turtle import shape
 import folium
 from folium import plugins
 import pandas as pd
+import numpy as np
 import requests
 from affichage.fonction.ApiExport import creationDurlHubeau
 def mapmaxmin():
     requette=requests.get("https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?code_departement=972")
     new=pd.DataFrame(json.loads(requette.text)['data'])
-    new['lien']='<a href='+str(creationDurlHubeau(code_station=new['code_station']))+'>'+str(new['libelle_station'])+'</a>'
+    
+    new['lien']=''
+    # new = old[['A', 'C', 'D']].copy()
+    for i in range (new.shape[0]):
+        new['lien'].iloc[i]='<a href='+str(creationDurlHubeau(code_station=new['code_station'].iloc[i]))+'>'+str(new['libelle_station'].iloc[i])+'</a>'
+    print(new['lien'])
 
     # print(new['longitude', 'latitude'])'longitude', 'latitude'
     map_enum_icons = folium.Map([14.6, -61], zoom_start=11)
