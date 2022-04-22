@@ -1,8 +1,9 @@
 
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
-from affichage.models import Band,Titre,releve_Ville
-from affichage.forms import ContactUsForm,RechercheForm,summary_pdf
+from affichage.models import Band,Titre,releve_Ville,summary_pdf
+from affichage.forms import ContactUsForm,RechercheForm
+import codecs
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche
 from affichage.fonction.carte import mapmaxmin
@@ -65,13 +66,21 @@ def contact_us(request):
 
 
 
-def upload_file(request):
-    if request.method == "POST":
+def upload_file(request, id):
+    project =summary_pdf.objects.get(titre="test")
+    fl_path = project.file.path
+    filename = project.file.name
+    fl = codecs.open(fl_path, 'r', encoding='ISO-8859-1')
+    mime_type = "application/zip"
+    response = HttpResponse(fl, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    return response
+    """if request.method == "POST":
         form = summary_pdf(request.POST,request.FILES)
         if form.is_valid():
             return redirect(hello)
     else : form = summary_pdf()
-    return render(request, "affichage/upload.html",{"form":form})
+    return render(request, "affichage/upload.html",{"form":form})"""
 
 def listing(request):
     return HttpResponse("<p>la liste<p>")
