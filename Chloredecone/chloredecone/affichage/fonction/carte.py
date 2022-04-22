@@ -31,4 +31,3 @@ def mapmaxmin():
     #     number reste a changer mtre des valeur
     # print(new.lien)
     return map_enum_icons._repr_html_()
-mapmaxmin()
