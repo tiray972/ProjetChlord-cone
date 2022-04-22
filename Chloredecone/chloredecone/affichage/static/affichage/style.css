@@ -92,6 +92,9 @@ footer .colones{
     /* border-bottom: darkcyan solid 3px; */
     /* border-radius: 40px; */
 }
+#container_map{
+    z-index: 1;
+}
 
 #txt{
     border: none;
