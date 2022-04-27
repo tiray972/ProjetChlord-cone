@@ -3,12 +3,24 @@
     {% block content %}
     <header>
         
-            <h1>carte des station d'eau de surface</h1>
+            <h3>Cartographie</h3>
             <hr>
         <div class="container_map">
-            {{m2 |safe}}
+            
         </div>
     </header>
+    <body>
+        <div class="grid" >
+            <div class="item" >
+                <h3>eau de surface + nombre de prelevement</h3>
+                <hr>
+                {{m2 |safe}}</div>
+            <div class="item" >
+                <h3>eau de surface + nappesousterraine</h3>
+                <hr>
+                {{m2 |safe}}</div>
+        </div>
+    </body>
 
     {% endblock %}
 </html> 

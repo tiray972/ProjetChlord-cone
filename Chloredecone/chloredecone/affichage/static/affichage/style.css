@@ -12,6 +12,14 @@ body{
 body .page{
 	margin: 20px 80px;
 }
+body .grid{
+    width: 20000px ;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(500px,1fr));
+}
+body .item{
+    height: 9000px;
+}
 hr{
     position: sticky;
     top: 70px;
