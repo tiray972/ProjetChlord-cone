@@ -31,3 +31,23 @@ def mapmaxmin():
     #     number reste a changer mtre des valeur
     # print(new.lien)
     return map_enum_icons._repr_html_()
+
+
+def surfandsouter():
+    para={'num_departement':"972"}
+    df1=requests.get('https://hubeau.eaufrance.fr/api/v1/qualite_nappes/stations',params=para)
+    df2=requests.get("https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?code_departement=972")
+    df2=pd.DataFrame(json.loads(df2.text)['data'])
+    df1=pd.DataFrame(json.loads(df1.text)['data'])
+    map_enum_icons = folium.Map([14.6, -61], zoom_start=11)
+    for i in df2.itertuples():
+        folium.Marker(location=[i.latitude, i.longitude],
+                    popup=i.libelle_station,#
+                    icon=folium.Icon(color='green', icon='ok-sign')).add_to(map_enum_icons)
+    for i in df1.itertuples():
+        folium.Marker(location=[i.latitude, i.longitude],
+                    popup=i.bss_id,#libelle_station
+                    icon=folium.Icon(color='red', icon='ok-sign')).add_to(map_enum_icons)
+    
+    return map_enum_icons._repr_html_()
+    
