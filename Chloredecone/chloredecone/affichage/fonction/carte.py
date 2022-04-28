@@ -31,7 +31,7 @@ def mapmaxmin():
     #     number reste a changer mtre des valeur
     # print(new.lien)
     return map_enum_icons._repr_html_()
-
+   
 
 def surfandsouter():
     para={'num_departement':"972"}
@@ -50,4 +50,17 @@ def surfandsouter():
                     icon=folium.Icon(color='red', icon='ok-sign')).add_to(map_enum_icons)
     
     return map_enum_icons._repr_html_()
+
+  
     
+def littoraux():
+    df2=requests.get("https://hubeau.eaufrance.fr/api/vbeta/surveillance_littoral/lieux_surv?distance=70&latitude=14.6&longitude=-61")
+    df2=pd.DataFrame(json.loads(df2.text)['data'])
+    
+    map_enum_icons = folium.Map([14.6, -61], zoom_start=11)
+    for i in df2.itertuples():
+        folium.Marker(location=[i.latitude, i.longitude],
+                    popup=i.libelle_lieusurv,#
+                    icon=folium.Icon(color='green', icon='ok-sign')).add_to(map_enum_icons)
+    
+    return map_enum_icons._repr_html_()

@@ -6,7 +6,7 @@ from affichage.forms import ContactUsForm,RechercheForm
 import codecs
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche
-from affichage.fonction.carte import mapmaxmin,surfandsouter
+from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
 
 
 def hello(request):
@@ -52,7 +52,7 @@ def about(request):
 
 def presentation(request):
     
-    map={'m1':mapmaxmin,'m2':surfandsouter}
+    map={'m1':mapmaxmin,'m2':surfandsouter,'m3':littoraux}
     return render(request,'affichage/amap.html',map)
 
 def contact_us(request):

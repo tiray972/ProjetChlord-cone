@@ -1,5 +1,5 @@
 
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 from django import http
 import requests,json,xmltodict
 import time
@@ -105,7 +105,7 @@ print(' |prelevé le :',j['data'][0]['date_prelevement'])
 print(j['data'][0]['code_unite'],j['data'][0]['symbole_unite'])
 print(' libelle parametre :',j['data'][0]['libelle_parametre'])
 '''
-
 # print(j['data'][0].keys())
 # print(CreationUrlAdes('1186ZZ0185/P'))
 # print(creationDurlHubeau())
+
