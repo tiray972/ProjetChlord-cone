@@ -61,6 +61,6 @@ def littoraux():
     for i in df2.itertuples():
         folium.Marker(location=[i.latitude, i.longitude],
                     popup=i.libelle_lieusurv,#
-                    icon=folium.Icon(color='green', icon='ok-sign')).add_to(map_enum_icons)
+                    icon=folium.Icon(color='blue', icon='ok-sign')).add_to(map_enum_icons)
     
     return map_enum_icons._repr_html_()
