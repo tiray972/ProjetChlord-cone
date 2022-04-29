@@ -14,16 +14,14 @@ def mapmaxmin():
     new['lien']=''
     new['count']=''
     # new = old[['A', 'C', 'D']].copy()
-    for i in range (new.shape[0]):
-        new['lien'].iloc[i]='<a href='+str(creationDurlHubeau(code_station=new['code_station'].iloc[i]))+'>'+str(new['libelle_station'].iloc[i])+'</a>'
-        new['count'].iloc[i]=json.loads(requests.get(creationDurlHubeau(code_station=new['code_station'].iloc[i])).text)['count']
+    
 
     # print(new['longitude', 'latitude'])'longitude', 'latitude'
     map_enum_icons = folium.Map([14.6, -61], zoom_start=11)
     for i in new.itertuples():
         folium.Marker(location=[i.latitude, i.longitude],
-                    popup=i.lien,#libelle_station
-                    icon=plugins.BeautifyIcon(number=i.count,
+                    popup='<a href='+str(creationDurlHubeau(code_station=i.code_station))+'>'+str(i.libelle_station)+'</a>',#libelle_station
+                    icon=plugins.BeautifyIcon(number=json.loads(requests.get(creationDurlHubeau(code_station=i.code_station)).text)['count'],
                                                 border_color='blue',
                                                 border_width=1,
                                                 text_color='red',
