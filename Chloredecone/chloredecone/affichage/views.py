@@ -65,8 +65,9 @@ def contact_us(request):
         form= ContactUsForm()
     return render(request,'affichage/contact-us.html',{'form':form})
 
-
-
+def new_base(req):
+    return render(req,'affichage/new_base.html')
+ 
 def upload_file(request, id):
     project =summary_pdf.objects.get(titre="test")
     fl_path = project.file.path

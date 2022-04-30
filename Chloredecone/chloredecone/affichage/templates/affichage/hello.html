@@ -1,13 +1,92 @@
 <!DOCTYPE html>
 
-    {% extends 'affichage/base.html' %}
+    {% extends 'affichage/new_base.html' %}
 
     {% block content %}
     <body>
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 formauth">
+                        <form action="{% url 'recherche' %}" method=POST>
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class=" col-md-12 text-center">
+                                    <h1 class="text-dark">Recherche</h1>
+
+                                </div>
+
+                            </div>
+                            <div class="row mb-12">
+                                <select name="recherche_page" id=""> 
+                                    {% for i in ville %}
+                                    <option value=" {{i}} "> {{i}}</option>
+                                    {% endfor %}
+                                    
+                                </select>
+                              </div>
+                            </div>
+                            <div class="row mb-3">
+                                <select name="recherche_page_date_debut" id=""> 
+                                    {% for i in date %}
+                                    <option value=" {{i}} "> {{i}}</option>
+                                    {% endfor %}
+                                    
+                                </select>
+                                <select name="recherche_page_date_fin" id=""> 
+                                    {% for i in date %}
+                                    <option value=" {{i}} "> {{i}}</option>
+                                    {% endfor %}
+                                    
+                                </select>
+                              </div>
+                            </div>
+                            <fieldset class="row mb-3">
+                              <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+                              <div class="col-sm-10">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                  <label class="form-check-label" for="gridRadios1">
+                                    First radio
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                  <label class="form-check-label" for="gridRadios2">
+                                    Second radio
+                                  </label>
+                                </div>
+                                <div class="form-check disabled">
+                                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+                                  <label class="form-check-label" for="gridRadios3">
+                                    Third disabled radio
+                                  </label>
+                                </div>
+                              </div>
+                            </fieldset>
+                            <div class="row mb-3">
+                              <div class="col-sm-10 offset-sm-2">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="gridCheck1">
+                                  <label class="form-check-label" for="gridCheck1">
+                                    Example checkbox
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <button type="submit" class="btn btn-dark">Sign in</button>
+                          </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
         
     
     
-    <header>
+    <!-- <header>
         <H1>Recherche</H1>
         <div id="rolling_bar">
             <form action="{% url 'recherche' %}" method=POST>
@@ -36,7 +115,7 @@
                 <input id="ss_terr" type="checkbox" name="sous_terrain" checked><label for="ss_terr"></label>
                 
                   
-               <!-- <input type="text" id="txt" placeholder="Saisir nom ville ou date "name='recherche_page'>-->
+               <!-- <input type="text" id="txt" placeholder="Saisir nom ville ou date "name='recherche_page'>
             
              
                 
@@ -45,7 +124,7 @@
         </form>
       
           </div>
-    </header>
+    </header> -->
     
         <section class="page">
             

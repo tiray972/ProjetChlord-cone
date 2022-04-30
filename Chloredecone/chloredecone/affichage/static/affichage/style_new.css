@@ -1,0 +1,18 @@
+body{
+    background-color: darkslategray;
+}
+.ligne{
+    padding: 20px;
+}
+header{
+    background-color: darkslategray;
+    position: sticky;
+    z-index: 2;
+}
+.formauth{
+    margin: 0px;
+    padding: 100px;
+    
+    border-radius: 20px;
+    background-color: darkslategray;
+}
