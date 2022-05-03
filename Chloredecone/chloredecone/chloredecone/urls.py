@@ -23,6 +23,7 @@ urlpatterns = [
     path('',views.hello,name='index'),
     path('admin/', admin.site.urls),
     path('hello/',views.hello),
+    path('tab/',views.Tableau,name='tableau'),
     path('new_base',views.new_base),
     path('upload/',views.upload_file),
     path('upload/<int:id>/',views.upload_file),

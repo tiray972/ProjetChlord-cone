@@ -5,7 +5,7 @@ from affichage.models import Band,Titre,releve_Ville,summary_pdf
 from affichage.forms import ContactUsForm,RechercheForm
 import codecs
 # importation local
-from affichage.fonction.ApiExport import jsonAffiche
+from affichage.fonction.ApiExport import jsonAffiche,tabl
 from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
 
 
@@ -54,6 +54,18 @@ def presentation(request):
     
     map={'m1':mapmaxmin,'m2':surfandsouter,'m3':littoraux}
     return render(request,'affichage/amap.html',map)
+
+def Tableau(request):
+    # df = pd.read_csv("tableview/static/csv/20_Startups.csv")
+  
+    
+    # json_records = df.reset_index().to_json(orient ='records')
+    # data = []
+    # data = json.loads(json_records)
+    data=tabl
+    context = {'d': data}
+  
+    return render(request, 'affichage/tableau.html', context)
 
 def contact_us(request):
     form = ContactUsForm()

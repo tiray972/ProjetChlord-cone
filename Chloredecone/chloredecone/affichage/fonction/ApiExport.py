@@ -108,4 +108,5 @@ print(' libelle parametre :',j['data'][0]['libelle_parametre'])
 # print(j['data'][0].keys())
 # print(CreationUrlAdes('1186ZZ0185/P'))
 # print(creationDurlHubeau())
-
+def tabl():
+    pass
