@@ -13,12 +13,12 @@
   
         <div class="container">
           <h2 class="text-center"><u>tableau hubeau</u></h2><br>            
-          <table class="table table-dark table-striped">
+          <table border="2" bgcolor="blue" class="table table-dark table-striped">
             <thead>
               <tr>
                 <th>Code station</th>
                 <th>nom</th>
-                <th>lat</th>
+                <th>nom_producteur</th>
                 <th>longitude</th>
               </tr>
             </thead>
@@ -26,10 +26,11 @@
             
             {% if d %}  
             {% for i in d %}
+           
               <tr>
                 <td>{{i.code_station}}</td>
                 <td>{{i.libelle_station}}</td>
-                <td>{{i.latitude}}</td>
+                <td>{{i.nom_producteur}}</td>
                 <td>{{i.longitude}}</td>
                 
               </tr>
