@@ -12,15 +12,14 @@
     <body>
   
         <div class="container">
-          <h2 class="text-center"><u>20 - Startups Table</u></h2><br>            
+          <h2 class="text-center"><u>tableau hubeau</u></h2><br>            
           <table class="table table-dark table-striped">
             <thead>
               <tr>
-                <th>R&D Spend</th>
-                <th>Administration</th>
-                <th>Marketing Spend</th>
-                <th>State</th>
-                <th>Profit</th>
+                <th>Code station</th>
+                <th>nom</th>
+                <th>lat</th>
+                <th>longitude</th>
               </tr>
             </thead>
             <tbody>
@@ -28,11 +27,11 @@
             {% if d %}  
             {% for i in d %}
               <tr>
-                <td>{{i.RD_Spend}}</td>
-                <td>{{i.Administration}}</td>
-                <td>{{i.Marketing_Spend}}</td>
-                <td>{{i.State}}</td>
-                <td>{{i.Profit}}</td>
+                <td>{{i.code_station}}</td>
+                <td>{{i.libelle_station}}</td>
+                <td>{{i.latitude}}</td>
+                <td>{{i.longitude}}</td>
+                
               </tr>
             {% endfor %}
             {% endif %}

@@ -109,4 +109,6 @@ print(' libelle parametre :',j['data'][0]['libelle_parametre'])
 # print(CreationUrlAdes('1186ZZ0185/P'))
 # print(creationDurlHubeau())
 def tabl():
-    pass
+    httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+    dico={'code_departement':'972'}
+    return (donnejson(httpjson,dico))['data']
