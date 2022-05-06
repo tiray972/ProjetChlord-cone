@@ -1,5 +1,6 @@
 
 # from bs4 import BeautifulSoup
+from msilib.schema import tables
 from django import http
 import requests,json,xmltodict
 import time
@@ -108,7 +109,14 @@ print(' libelle parametre :',j['data'][0]['libelle_parametre'])
 # print(j['data'][0].keys())
 # print(CreationUrlAdes('1186ZZ0185/P'))
 # print(creationDurlHubeau())
-def tabl():
-    httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
-    dico={'code_departement':'972'}
+
+#                           format de la date 2014-07-06
+def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et bouttons dispos sur la page de recherche
+    if choix==1:
+        pass
+        httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+        dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin}#
+        
     return (donnejson(httpjson,dico))['data']
+print(tabl(1,'2022-05-01','2022-05-06'))
+

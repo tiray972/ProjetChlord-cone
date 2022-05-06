@@ -56,13 +56,8 @@ def presentation(request):
     return render(request,'affichage/amap.html',map)
 
 def Tableau(request):
-    # df = pd.read_csv("tableview/static/csv/20_Startups.csv")
-  
     
-    # json_records = df.reset_index().to_json(orient ='records')
-    # data = []
-    # data = json.loads(json_records)
-    data=tabl
+    data=tabl(1,'2020-05-01','2022-05-06')
     context = {'d': data}
   
     return render(request, 'affichage/tableau.html', context)
