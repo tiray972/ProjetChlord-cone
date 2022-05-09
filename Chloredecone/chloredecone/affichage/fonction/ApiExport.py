@@ -1,6 +1,8 @@
 
 # from bs4 import BeautifulSoup
 from msilib.schema import tables
+from tkinter import N
+from tkinter.messagebox import NO
 from django import http
 import requests,json,xmltodict
 import time
@@ -116,7 +118,9 @@ def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et b
         pass
         httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
         dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin}#
-        
-    return (donnejson(httpjson,dico))['data']
+    try:    
+        return (donnejson(httpjson,dico))['data']
+    except:
+        return None
 print(tabl(1,'2022-05-01','2022-05-06'))
 
