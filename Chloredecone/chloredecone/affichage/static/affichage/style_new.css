@@ -1,5 +1,6 @@
 body{
-    background-color: darkslategray;
+    /* background-color: darkslategray; */
+    background: linear-gradient(180deg,darkslategray,black);
 }
 .ligne{
     padding: 20px;
@@ -12,8 +13,8 @@ header{
 }
 .formauth{
     margin: 0px;
-    padding: 100px;
+    padding: 150px;
     
     border-radius: 20px;
-    background-color: darkslategray;
+    
 }

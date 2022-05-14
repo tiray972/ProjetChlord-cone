@@ -59,9 +59,10 @@ def search(request):
         # pdf.titre=''
         # pdf.file=make_pdf()
         # pdf.save()
+        id=3
         
             
-        return render(request,'affichage/search.html',{"data":recherche,'ville':code,'JSON':JSON})
+        return render(request,'affichage/search.html',{"data":recherche,'ville':code,'JSON':JSON,"id":id})
     
     return render(request,'affichage/hello.html')
 
