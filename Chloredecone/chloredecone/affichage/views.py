@@ -80,7 +80,8 @@ def presentation(request):
 def Tableau(request):
     
     data=tabl(1,'2020-05-01','2022-05-06')
-    context = {'d': data}
+    data2=tabl(2,'2020-05-01','2022-05-06')
+    context = {'d': data,'deux': data2}
   
     return render(request, 'affichage/tableau.html', context)
 
