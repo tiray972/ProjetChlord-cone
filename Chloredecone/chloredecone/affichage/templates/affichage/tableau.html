@@ -1,5 +1,5 @@
 <html>
-    {% extends 'affichage/base.html' %}
+    {% extends 'affichage/new_base.html' %}
     {% block content %}
     <header>
         
@@ -10,7 +10,7 @@
         </div>
     </header>
     <body>
-  
+        {% if d %}
         <div class="container">
           <h2 class="text-center"><u>tableau hubeau</u></h2><br>            
           <table border="2" bgcolor="blue" class="table table-dark table-striped">
@@ -19,27 +19,56 @@
                 <th>Code station</th>
                 <th>nom</th>
                 <th>nom_producteur</th>
-                <th>longitude</th>
+                <th>donnée</th>
               </tr>
             </thead>
             <tbody>
             
-            {% if d %}  
             {% for i in d %}
            
               <tr>
                 <td>{{i.code_station}}</td>
                 <td>{{i.libelle_station}}</td>
                 <td>{{i.nom_producteur}}</td>
-                <td>{{i.longitude}}</td>
+                <td>{{i.}}</td>
                 
               </tr>
             {% endfor %}
-            {% endif %}
+            
             </tbody>
           </table>
         </div>
-          
+        {% endif %}   
+        {% if deux %}
+        <div class="container">
+          <h2 class="text-center"><u>tableau hubeau</u></h2><br>            
+          <table border="2" bgcolor="blue" class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th>Code station</th>
+                <th>nom</th>
+                <th>nom_producteur</th>
+                <th>donnée</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+            {% for i in deux %}
+            
+           
+              <tr>
+                <td>{{i.code_station}}</td>
+                <td>{{i.libelle_station}}</td>
+                <td>{{i.nom_producteur}}</td>
+                <td>{{i.}}</td>
+                
+              </tr>
+            {% endfor %}
+            
+            </tbody>
+          </table>
+        </div>
+        {% endif %}
         </body>
 
     {% endblock %}

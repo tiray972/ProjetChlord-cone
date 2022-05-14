@@ -7,6 +7,7 @@ from django import http
 import requests,json,xmltodict
 import time
 import pandas as pd
+
 #les commune avec tout leur code de point d'eau ressencer par ades(sandres)
 commune={'Commune': {'Basse-Pointe (97203)': {'code': ['1166ZZ0026/NF8', '1168ZZ0043/MBF1', '1168ZZ0054/PZ']},
  'Saint-Pierre (97225)': {'code': ['1167ZZ0023/RBS1', '1167ZZ0029/SP1', '1167ZZ0045/NF6']},
@@ -80,6 +81,7 @@ dico={'code_departement':'972'}
 def donnejson(url,param):
     if testrequet(url,paramtre=param)[1]=='application/json;charset=UTF-8':
         return json.loads(requests.get(testrequet(url,paramtre=param)[0]).text)
+    
   
 
 # ades ayan plusieur service jai repertorier les base modal pour chaque request
@@ -114,13 +116,22 @@ print(' libelle parametre :',j['data'][0]['libelle_parametre'])
 
 #                           format de la date 2014-07-06
 def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et bouttons dispos sur la page de recherche
+    littoraux='https://hubeau.eaufrance.fr/api/vbeta/surveillance_littoral/lieux_surv?distance=70&latitude=14.6&longitude=-61'
+    eausurface='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+    dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin}#
+    dico1={}#
     if choix==1:
-        pass
         httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
-        dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin}#
-    try:    
-        return (donnejson(httpjson,dico))['data']
-    except:
-        return None
-print(tabl(1,'2022-05-01','2022-05-06'))
+        try:    
+            return (donnejson(eausurface,dico))['data']
+        except:
+            return None
+    if choix==2:
+        
+        
+        try:    
+            return json.loads(requests.get(littoraux,dico1).text)['data']#
+        except:
+            return None
+
 
