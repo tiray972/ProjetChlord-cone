@@ -4,8 +4,9 @@ body{
 .ligne{
     padding: 20px;
 }
+
 header{
-    background-color: darkslategray;
+    background-color: rgb(48, 42, 42);
     position: sticky;
     z-index: 2;
 }

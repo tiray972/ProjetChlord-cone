@@ -8,6 +8,7 @@ import codecs
 from affichage.fonction.ApiExport import jsonAffiche,tabl
 from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
 from affichage.fonction.create_pdf import make_pdf
+from affichage.fonction.util import try_radio
 
 
 def hello(request):
@@ -24,7 +25,7 @@ def hello(request):
 def search(request):
     
     if request.method == 'POST':
-        print(request.POST['recherche_page'],"<---------------")
+        print(request.POST['surface_terr'],"<---------------")
         recherche= request.POST['recherche_page']
         date_debut=request.POST['recherche_page_date_debut']
         date_fin=request.POST['recherche_page_date_fin']
@@ -32,8 +33,17 @@ def search(request):
             ss_terr=request.POST['sous_terrain']
         except:
             ss_terr=0
-            pass
-        print(ss_terr)
+        try:
+            eau_surface=request.POST['eau_surface']
+        except:
+            eau_surface=0
+        try:
+            surface_terr=request.POST['surface_terr']
+        except:
+            surface_terr=0
+            
+        # ss_terr=try_radio(request.POST['sous_terrain'])
+        print(ss_terr,surface_terr,eau_surface)
         
 
         ville=releve_Ville.objects.all()
