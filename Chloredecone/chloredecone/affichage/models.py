@@ -1,4 +1,5 @@
 from email.policy import default
+from pickle import TRUE
 from pyexpat import model
 from re import M
 from django.db import models
@@ -39,6 +40,7 @@ class releve_Ville(models.Model):
 class summary_pdf(models.Model):
     titre = models.CharField(default="",max_length=100)
     file=models.FileField(upload_to="ville/pdf/")
+    id= models.AutoField(primary_key=TRUE)
     
     def __str__(self):
         return f'{self.titre}'
