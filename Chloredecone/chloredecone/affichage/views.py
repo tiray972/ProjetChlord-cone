@@ -7,18 +7,25 @@ import codecs
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche,tabl
 from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
+from affichage.fonction.create_pdf import make_pdf
+from affichage.fonction.util import try_radio
 
 
 def hello(request):
     date  = [1990+i for i in range(32)]
+    liste=[]
+    # sumary =summary_pdf.objects.all()
+    # [liste.append(sumary[i].titre) for i in range(len(sumary))]
+    
+    # print(liste)
     ville=['Basse-Pointe (97203)', 'Saint-Pierre (97225)', 'Prêcheur (97219)', 'Morne-Rouge (97218)', 'Marigot (97216)', 'Lorrain (97214)', 'Carbet (97204)', 'Fort-de-France (97209)', 'Bellefontaine (97234)', 'Saint-Joseph (97224)', 'Gros-Morne (97212)', 'Robert (97222)', 'Trinité (97230)', 'Case-Pilote (97205)', 'Schœlcher (97229)', 'Lamentin (97213)', 'Ducos (97207)', 'François (97210)', 'Trois-Îlets (97231)', "Anses-d'Arlet (97202)", 'Rivière-Pilote (97220)', 'Vauclin (97232)', 'Diamant (97206)', 'Sainte-Luce (97227)', 'Sainte-Anne (97226)', 'Marin (97217)']
-    return render(request,'affichage/hello.html',{"ville":ville,'date':date}
+    return render(request,'affichage/hello.html',{"ville":ville,'date':date,"sum":list(liste)}
     )
 
 def search(request):
     
     if request.method == 'POST':
-        print(request.POST['recherche_page'],"<---------------")
+        print(request.POST['surface_terr'],"<---------------")
         recherche= request.POST['recherche_page']
         date_debut=request.POST['recherche_page_date_debut']
         date_fin=request.POST['recherche_page_date_fin']
@@ -26,7 +33,17 @@ def search(request):
             ss_terr=request.POST['sous_terrain']
         except:
             ss_terr=0
-            pass
+        try:
+            eau_surface=request.POST['eau_surface']
+        except:
+            eau_surface=0
+        try:
+            surface_terr=request.POST['surface_terr']
+        except:
+            surface_terr=0
+            
+        # ss_terr=try_radio(request.POST['sous_terrain'])
+        print(ss_terr,surface_terr,eau_surface)
         
 
         ville=releve_Ville.objects.all()
@@ -38,6 +55,11 @@ def search(request):
             JSON[elm]=jsonAffiche(elm)
             
             #print(type(JSON[elm]),'<-----------------------------------')
+        # pdf=summary_pdf()
+        # pdf.titre=''
+        # pdf.file=make_pdf()
+        # pdf.save()
+        
             
         return render(request,'affichage/search.html',{"data":recherche,'ville':code,'JSON':JSON})
     
@@ -77,7 +99,7 @@ def new_base(req):
     return render(req,'affichage/new_base.html')
  
 def upload_file(request, id):
-    project =summary_pdf.objects.get(titre="test")
+    project =summary_pdf.objects.get(id=id)
     fl_path = project.file.path
     filename = project.file.name
     fl = codecs.open(fl_path, 'r', encoding='ISO-8859-1')

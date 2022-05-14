@@ -133,5 +133,8 @@ def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et b
             return json.loads(requests.get(littoraux,dico1).text)['data']#
         except:
             return None
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7677b441b08140cc597fb22f772c03d663aa8bb1
 

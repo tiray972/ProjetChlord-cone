@@ -1,19 +1,30 @@
 <html>
-    {% extends 'affichage/base.html' %}
+    {% extends 'affichage/new_base.html' %}
     {% block content %}
     
-<body>
-    <header>
-    {% if data %}
-    <h1>Page de recherche. . . {{ data }} </h1>
-    {% else %}
-    <h1>Aucune recherche faite</h1>
-    {% endif %}
-    <hr>
-    {% for villes in ville %}
-        <p>  </p>
-    {% endfor %}
-    <table border="2">
+<body class="container justify-content-between">
+    <div class="container-fluid">
+      <div class="row">
+      {% if data %}
+        <div class="col-md-6 ">
+          <h1 class="text-white">Page de recherche. . . {{ data }} </h1>
+        </div>
+        <div class="col-md-6">
+          <BUtton class="btn btn-primary">Download PDF</BUtton>
+        </div>
+      
+      
+      {% else %}
+      <h1>Aucune recherche faite</h1>
+      {% endif %}
+      <hr>
+      {% for villes in ville %}
+          <p>  </p>
+      {% endfor %}
+      </div>
+    </div>
+      
+    <table class="table table-dark table-striped" border="2">
         {% for code,jsson in JSON.items %}
 
           {% for key,dict in jsson.items %}
@@ -31,7 +42,7 @@
         {%endfor%}
         </table>
     
-    </header>
+    
 
 </body>
     {% endblock %}
