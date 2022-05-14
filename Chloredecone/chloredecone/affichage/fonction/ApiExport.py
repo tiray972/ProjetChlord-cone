@@ -118,8 +118,10 @@ print(' libelle parametre :',j['data'][0]['libelle_parametre'])
 def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et bouttons dispos sur la page de recherche
     littoraux='https://hubeau.eaufrance.fr/api/vbeta/surveillance_littoral/lieux_surv?distance=70&latitude=14.6&longitude=-61'
     eausurface='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+    eausouter="https://hubeau.eaufrance.fr/api/v1/qualite_nappes/analyses"
     dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin}#
     dico1={}#
+    dicosouter={'num_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin}
     if choix==1:
         httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
         try:    
@@ -127,12 +129,14 @@ def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et b
         except:
             return None
     if choix==2:
-        
-        
         try:    
             return json.loads(requests.get(littoraux,dico1).text)['data']#
         except:
             return None
-
+    if choix==3:
+        try:    
+            return json.loads(requests.get(eausouter,dicosouter).text)['data']#
+        except:
+            return None
 
 
