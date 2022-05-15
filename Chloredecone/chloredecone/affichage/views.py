@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from affichage.models import Band,Titre,releve_Ville,summary_pdf
 from affichage.forms import ContactUsForm,RechercheForm
 import codecs
+from django.core.paginator import Paginator
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche,tabl
 from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
@@ -43,12 +44,11 @@ def search(request):
             surface_terr=0
             
         # ss_terr=try_radio(request.POST['sous_terrain'])
-        print(ss_terr,surface_terr,eau_surface)
         
 
         ville=releve_Ville.objects.all()
         
-        print(date_debut,'--',date_fin,"<---------------------",ss_terr)
+        print(date_debut,'--',date_fin,"<---------------------",ss_terr,surface_terr,eau_surface)
         code = ville[0].data['Commune'][recherche.strip()]['code']
         JSON={}
         for elm in code:
@@ -83,6 +83,9 @@ def Tableau(request):
     data=tabl(1,'2020-05-01','2022-05-06')
     data2=tabl(2,'2020-05-01','2022-05-06')
     context = {'d': data,'deux': data2}
+    p=Paginator(context,20)
+    page=request.GET.get('page')
+    enregistrement=p.get_page(page)
   
     return render(request, 'affichage/tableau.html', context)
 
@@ -102,6 +105,7 @@ def new_base(req):
 def upload_file(request, id):
     project =summary_pdf.objects.get(id=id)
     fl_path = project.file.path
+    print(fl_path,"---------------")
     filename = project.file.name
     fl = codecs.open(fl_path, 'r', encoding='ISO-8859-1')
     mime_type = "application/zip"
