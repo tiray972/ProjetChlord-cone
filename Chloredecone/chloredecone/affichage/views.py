@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from affichage.models import Band,Titre,releve_Ville,summary_pdf
 from affichage.forms import ContactUsForm,RechercheForm
 import codecs
-from django.core.paginator import Paginator
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche,tabl
 from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
@@ -44,6 +43,7 @@ def search(request):
             surface_terr=0
             
         # ss_terr=try_radio(request.POST['sous_terrain'])
+
         
 
         ville=releve_Ville.objects.all()
@@ -83,9 +83,6 @@ def Tableau(request):
     data=tabl(1,'2020-05-01','2022-05-06')
     data2=tabl(2,'2020-05-01','2022-05-06')
     context = {'d': data,'deux': data2}
-    p=Paginator(context,20)
-    page=request.GET.get('page')
-    enregistrement=p.get_page(page)
   
     return render(request, 'affichage/tableau.html', context)
 
