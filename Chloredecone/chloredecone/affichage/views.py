@@ -60,19 +60,24 @@ def search(request):
         # pdf.file=make_pdf()
         # pdf.save()
         id=3
+        T1=None
+        T2=None
+        T3=None
+
         if ss_terr or surface_terr or eau_surface:
             choix=0
             if ss_terr:
-                choix=3
+                T1=tabl(3, str(date_debut) + '-05-01', str(date_fin) + '-05-01')
             if surface_terr:
-                choix=4
+                T2=tabl(2, str(date_debut) + '-05-01', str(date_fin) + '-05-01')
             if eau_surface:
-                choix=1
+                T3=tabl(1, str(date_debut) + '-05-01', str(date_fin) + '-05-01')
 
-            
-        return render(request,'affichage/search.html',{"data":recherche,
+
+
+                return render(request,'affichage/search.html',{"data":recherche,
                                                        'ville':code,'JSON':JSON,
-                                                       "id":id,"tableau":tabl(choix,str(date_debut)+'-05-01',str(date_fin)+'-05-01')})
+                                                       "id":id,"tab1":T1,"tab2":T2,"tab3":T3})
     
     return render(request,'affichage/hello.html')
 
