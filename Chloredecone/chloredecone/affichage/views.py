@@ -25,7 +25,7 @@ def hello(request):
 def search(request):
     
     if request.method == 'POST':
-        print(request.POST['surface_terr'],"<---------------")
+
         recherche= request.POST['recherche_page']
         date_debut=request.POST['recherche_page_date_debut']
         date_fin=request.POST['recherche_page_date_fin']
@@ -47,7 +47,7 @@ def search(request):
         
 
         ville=releve_Ville.objects.all()
-        
+
         print(date_debut,'--',date_fin,"<---------------------",ss_terr,surface_terr,eau_surface)
         code = ville[0].data['Commune'][recherche.strip()]['code']
         JSON={}
@@ -60,9 +60,19 @@ def search(request):
         # pdf.file=make_pdf()
         # pdf.save()
         id=3
-        
+        if ss_terr or surface_terr or eau_surface:
+            choix=0
+            if ss_terr:
+                choix=3
+            if surface_terr:
+                choix=4
+            if eau_surface:
+                choix=1
+
             
-        return render(request,'affichage/search.html',{"data":recherche,'ville':code,'JSON':JSON,"id":id})
+        return render(request,'affichage/search.html',{"data":recherche,
+                                                       'ville':code,'JSON':JSON,
+                                                       "id":id,"tableau":tabl(choix,str(date_debut)+'-05-01',str(date_fin)+'-05-01')})
     
     return render(request,'affichage/hello.html')
 
