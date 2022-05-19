@@ -3,7 +3,10 @@ from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from affichage.models import Band,Titre,releve_Ville,summary_pdf
 from affichage.forms import ContactUsForm,RechercheForm
+from django.core.files import File
 import codecs
+from pathlib import Path
+import datetime
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche,tabl
 from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
@@ -55,11 +58,21 @@ def search(request):
             JSON[elm]=jsonAffiche(elm)
             
             #print(type(JSON[elm]),'<-----------------------------------')
-        # pdf=summary_pdf()
-        # pdf.titre=''
-        # pdf.file=make_pdf()
-        # pdf.save()
-        id=3
+        pdf=summary_pdf()
+        day=str(datetime.datetime.today().date())
+        titre=day
+       
+        pdf.titre=titre
+        make_pdf(titre,recherche)
+        
+        check="ville/tmp/"+titre+".pdf"
+        print(check,"<---------------------")
+        path = Path(str(check))
+        
+        with path.open(mode='rb') as f:
+            pdf.file = File(f, name=path.name)
+            pdf.save()
+        id=pdf.id
         T1=None
         T2=None
         T3=None
