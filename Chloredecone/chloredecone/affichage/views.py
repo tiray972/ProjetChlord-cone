@@ -60,7 +60,7 @@ def search(request):
             #print(type(JSON[elm]),'<-----------------------------------')
         pdf=summary_pdf()
         day=str(datetime.datetime.today().date())
-        titre=day
+        titre=day+"okok"
        
         pdf.titre=titre
         make_pdf(titre,recherche)
