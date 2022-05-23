@@ -63,9 +63,9 @@ def search(request):
 
         print(date_debut,'--',date_fin,"<---------------------",ss_terr,surface_terr,eau_surface)
         code = ville[0].data['Commune'][recherche.strip()]['code']
-        JSON={}
-        for elm in code:
-            JSON[elm]=jsonAffiche(elm)
+        JSON=None
+        # for elm in code:
+        #     JSON[elm]=jsonAffiche(elm)
         
             #print(type(JSON[elm]),'<-----------------------------------')
         # pdf=summary_pdf()
@@ -86,15 +86,15 @@ def search(request):
         T1=None
         T2=None
         T3=None
-        print(JSON['1166ZZ0026/NF8'].keys())
+        # print(JSON['1166ZZ0026/NF8'].keys())
         if ss_terr or surface_terr or eau_surface:
             choix=0
             if ss_terr:
-                T1=tabl(3, str(date_debut) + '-05-01', str(date_fin) + '-05-01')
+                T1=tabl(3, str(date_debut) , str(date_fin) )
             if surface_terr:
-                T2=tabl(2, str(date_debut) + '-05-01', str(date_fin) + '-05-01')
+                T2=tabl(2, str(date_debut) , str(date_fin) )
             if eau_surface:
-                T3=tabl(1, str(date_debut) + '-05-01', str(date_fin) + '-05-01')
+                T3=tabl(1, str(date_debut) , str(date_fin) )
             notre_json=releve_Ville()
             notre_json.data={"tab1":T1,"tab2":T2,"tab3":T3}
             notre_json.nom='votrejson'
@@ -126,9 +126,9 @@ def presentation(request):
 def Tableau(request):
     
     data=tabl(1,'2020-05-01','2022-05-06')
-    T1=tabl(3, '2020-05-01' + '-05-01', '2022-05-06' + '-05-01')
-    T2=tabl(2, '2020-05-01' + '-05-01', '2020-05-29' + '-05-01')
-    T3=tabl(1, '2020-05-01' + '-05-01', '2020-05-29' + '-05-01')
+    T1=tabl(3, '2020-05-01' , '2022-05-06' )
+    T2=tabl(2, '2020-05-01' , '2020-05-29' )
+    T3=tabl(1, '2020-05-01' , '2020-05-29' )
 
     data2=tabl(2,'2020-05-01','2022-05-06')
     context = {'d': T3,'deux': data2}
