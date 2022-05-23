@@ -149,13 +149,15 @@ def new_base(req):
     return render(req,'affichage/new_base.html')
  
 def upload_file(request, id):
-    
+        data=releve_Ville.objects.get(id=id)
         buf=io.BytesIO()
         c=canvas.Canvas(buf,pagesize=letter,bottomup=0)
         textob=c.beginText()
         textob.setTextOrigin(inch, inch)
         textob.setFont("Helvetica",14)
         lines=[
+            str(data.data),
+
             "ligne 1",
             "ligne2"
         ]
