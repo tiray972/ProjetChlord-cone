@@ -1,0 +1,1 @@
+ cd '.\Documents\LICENCE MATH\ALGO\PROJECT\ProjetChlord-cone\Chloredecone\chloredecone\' | python3 .\manage.py runserver
