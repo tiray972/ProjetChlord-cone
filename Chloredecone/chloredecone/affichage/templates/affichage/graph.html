@@ -10,8 +10,10 @@
         </div>
     </header>
     <body>
-      <img src="" width="270" height="295" alt="Illustration des problèmes de suddation" border="0" />
+    {%if graph%}
+<img src="data:image/png;base64,{{graph|safe}}" alt="Hi!">
         </body>
 
+    {% endif %}
     {% endblock %}
 </html> 
