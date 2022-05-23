@@ -32,8 +32,8 @@ def search(request):
     if request.method == 'POST':
 
         recherche= request.POST['recherche_page']
-        date_debut=request.POST['recherche_page_date_debut']
-        date_fin=request.POST['recherche_page_date_fin']
+        date_debut=request.POST['date_deb']
+        date_fin=request.POST['date_fin']
         try:
             ss_terr=request.POST['sous_terrain']
         except:
@@ -60,21 +60,21 @@ def search(request):
             JSON[elm]=jsonAffiche(elm)
             
             #print(type(JSON[elm]),'<-----------------------------------')
-        # pdf=summary_pdf()
-        # day=str(datetime.datetime.today().date())
-        # titre=day+"okok"
+        pdf=summary_pdf()
+        day=str(datetime.datetime.today().date())
+        titre=day+"okok"
        
-        # pdf.titre=titre
-        # make_pdf(titre,recherche)
+        pdf.titre=titre
+        make_pdf(titre,recherche)
         
-        # check="ville/tmp/"+titre+".pdf"
-        # print(check,"<---------------------")
-        # path = Path(str(check))
+        check="ville/tmp/"+titre+".pdf"
+        print(check,"<---------------------")
+        path = Path(str(check))
         
-        # with path.open(mode='rb') as f:
-        #     pdf.file = File(f, name=path.name)
-        #     pdf.save()
-        # id=pdf.id
+        with path.open(mode='rb') as f:
+            pdf.file = File(f, name=path.name)
+            pdf.save()
+        id=pdf.id
         T1=None
         T2=None
         T3=None
@@ -142,7 +142,7 @@ def upload_file(request, id):
     fl_path = project.file.path
     print(fl_path,"---------------")
     filename = project.file.name
-    fl = codecs.open(fl_path, 'r', encoding='ISO-8859-1')
+    fl = codecs.open(fl_path, 'r+', encoding='ISO-8859-1')
     mime_type = "application/zip"
     response = HttpResponse(fl, content_type=mime_type)
     response['Content-Disposition'] = "attachment; filename=%s" % filename

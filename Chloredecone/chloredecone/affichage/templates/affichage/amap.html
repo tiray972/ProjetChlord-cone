@@ -3,40 +3,48 @@
     {% block content %}
     <header>
         
-            <h3>Cartographie</h3>
-            <hr>
-        <div class="container_map">
             
-        </div>
+        
     </header>
     <body>
+        
         <div class="container">
+            <div class="row">
+                <div class="col-md-1 center">   
+                    <h3 class="text-light">Cartographie</h3>
+                    <hr>
+                </div>
+                
+            </div>
+            
             <div class="row">
                 <div class="col-md-4">
                     <div class="item" >
-                        <h3>eau de surface + nombre de prelevement</h3>
+                        <h3 class="text-light">eau de surface + nombre de prelevement</h3>
                         <hr>
-                        {{m1 |safe}}</div>
-                    <div class="item" >
+                        {{m2 |safe}}
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="item" >
-                        <h3>eau de surface + nombre de prelevement</h3>
+                        <h3 class="text-light">eau de surface + nombre de prelevement</h3>
                         <hr>
-                        {{m2 |safe}}</div>
-                    <div class="item" >
+                        {{m2 |safe}}
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="item" >
-                        <h3>eau de surface + nombre de prelevement</h3>
+                        <h3 class="text-light">eau de surface + nombre de prelevement</h3>
                         <hr>
-                        {{m3 |safe}}</div>
-                    <div class="item" >
+                        {{m3 |safe}}
+                    </div>
+
                 </div>
 
-            </div>
-
+            
         </div>
+    </div>
+
         <!-- <div class="grid" >
             
                 <h3>eau de surface + nappesousterraine</h3>

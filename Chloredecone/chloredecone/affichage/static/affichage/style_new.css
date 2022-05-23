@@ -1,6 +1,6 @@
 body{
     /* background-color: darkslategray; */
-    background: linear-gradient(180deg,darkslategray,black);
+    background: linear-gradient(180deg,darkslategray,white);
 }
 .ligne{
     padding: 20px;
