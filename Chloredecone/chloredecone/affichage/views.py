@@ -1,6 +1,7 @@
 
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
+# from Chloredecone.chloredecone.affichage.fonction.graph import nouveau
 from affichage.models import Band,Titre,releve_Ville,summary_pdf
 from affichage.forms import ContactUsForm,RechercheForm
 from django.core.files import File
@@ -9,6 +10,7 @@ from pathlib import Path
 import datetime
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche,tabl
+from affichage.fonction.graph import nouveau
 from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
 from affichage.fonction.create_pdf import make_pdf
 from affichage.fonction.util import try_radio
@@ -58,25 +60,25 @@ def search(request):
             JSON[elm]=jsonAffiche(elm)
             
             #print(type(JSON[elm]),'<-----------------------------------')
-        pdf=summary_pdf()
-        day=str(datetime.datetime.today().date())
-        titre=day+"okok"
+        # pdf=summary_pdf()
+        # day=str(datetime.datetime.today().date())
+        # titre=day+"okok"
        
-        pdf.titre=titre
-        make_pdf(titre,recherche)
+        # pdf.titre=titre
+        # make_pdf(titre,recherche)
         
-        check="ville/tmp/"+titre+".pdf"
-        print(check,"<---------------------")
-        path = Path(str(check))
+        # check="ville/tmp/"+titre+".pdf"
+        # print(check,"<---------------------")
+        # path = Path(str(check))
         
-        with path.open(mode='rb') as f:
-            pdf.file = File(f, name=path.name)
-            pdf.save()
-        id=pdf.id
+        # with path.open(mode='rb') as f:
+        #     pdf.file = File(f, name=path.name)
+        #     pdf.save()
+        # id=pdf.id
         T1=None
         T2=None
         T3=None
-
+        print(JSON['1166ZZ0026/NF8'].keys())
         if ss_terr or surface_terr or eau_surface:
             choix=0
             if ss_terr:
@@ -97,6 +99,10 @@ def search(request):
 def maping(request):
     return render(request,'affichage/map.html')
 
+def graph(request):
+    nouveau()
+    return render(request,'affichage/graph.html')
+
 def about(request):
     titre=Titre.objects.all()
     return render(request,'affichage/about-us.html',{'titre':titre})
@@ -109,8 +115,12 @@ def presentation(request):
 def Tableau(request):
     
     data=tabl(1,'2020-05-01','2022-05-06')
+    T1=tabl(3, '2020-05-01' + '-05-01', '2022-05-06' + '-05-01')
+    T2=tabl(2, '2020-05-01' + '-05-01', '2020-05-29' + '-05-01')
+    T3=tabl(1, '2020-05-01' + '-05-01', '2020-05-29' + '-05-01')
+
     data2=tabl(2,'2020-05-01','2022-05-06')
-    context = {'d': data,'deux': data2}
+    context = {'d': T3,'deux': data2}
   
     return render(request, 'affichage/tableau.html', context)
 
