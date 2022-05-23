@@ -1,4 +1,6 @@
 
+import imp
+from mmap import PAGESIZE
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 # from Chloredecone.chloredecone.affichage.fonction.graph import nouveau
@@ -8,6 +10,12 @@ from django.core.files import File
 import codecs
 from pathlib import Path
 import datetime
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche,tabl
 from affichage.fonction.graph import nouveau
@@ -138,21 +146,39 @@ def new_base(req):
     return render(req,'affichage/new_base.html')
  
 def upload_file(request, id):
-    project =summary_pdf.objects.get(id=id)
-    fl_path = project.file.path
-    print(fl_path,"---------------")
-    filename = project.file.name
-    fl = codecs.open(fl_path, 'r+', encoding='ISO-8859-1')
-    mime_type = "application/zip"
-    response = HttpResponse(fl, content_type=mime_type)
-    response['Content-Disposition'] = "attachment; filename=%s" % filename
-    return response
-    """if request.method == "POST":
-        form = summary_pdf(request.POST,request.FILES)
-        if form.is_valid():
-            return redirect(hello)
-    else : form = summary_pdf()
-    return render(request, "affichage/upload.html",{"form":form})"""
+    
+        buf=io.BytesIO()
+        c=canvas.Canvas(buf,pagesize=letter,bottomup=0)
+        textob=c.beginText()
+        textob.setTextOrigin(inch, inch)
+        textob.setFont("Helvetica",14)
+        lines=[
+            "ligne 1",
+            "ligne2"
+        ]
+        for line in lines:
+            textob.textLine(line)
+        c.drawText(textob)
+        c.showPage()
+        c.save()
+        buf.seek(0)
+        return FileResponse(buf, as_attachment=True,filename="test.pdf")
+
+    # project =summary_pdf.objects.get(id=id)
+    # fl_path = project.file.path
+    # print(fl_path,"---------------")
+    # filename = project.file.name
+    # fl = codecs.open(fl_path, 'r', encoding='ISO-8859-1')
+    # mime_type = "application/zip"
+    # response = HttpResponse(fl, content_type=mime_type)
+    # response['Content-Disposition'] = "attachment; filename=%s" % filename
+    # return response
+    # """if request.method == "POST":
+    #     form = summary_pdf(request.POST,request.FILES)
+    #     if form.is_valid():
+    #         return redirect(hello)
+    # else : form = summary_pdf()
+    # return render(request, "affichage/upload.html",{"form":form})"""
 
 def listing(request):
     return HttpResponse("<p>la liste<p>")
