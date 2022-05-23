@@ -100,8 +100,8 @@ def maping(request):
     return render(request,'affichage/map.html')
 
 def graph(request):
-    nouveau()
-    return render(request,'affichage/graph.html')
+    chart=nouveau()
+    return render(request,'affichage/graph.html',{'graph':chart})
 
 def about(request):
     titre=Titre.objects.all()

@@ -119,11 +119,12 @@ def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et b
     littoraux='https://hubeau.eaufrance.fr/api/vbeta/surveillance_littoral/lieux_surv?distance=70&latitude=14.6&longitude=-61'
     eausurface='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
     eausouter="https://hubeau.eaufrance.fr/api/v1/qualite_nappes/analyses"
-    dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin}#
+    # httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+    dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin,'size':5000}#
     dico1={}#
     dicosouter={'num_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin}
     if choix==1:
-        httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
+        
         try:    
             return (donnejson(eausurface,dico))['data']
         except:
