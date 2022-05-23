@@ -18,7 +18,7 @@ from reportlab.lib.pagesizes import letter
 
 # importation local
 from affichage.fonction.ApiExport import jsonAffiche,tabl
-from affichage.fonction.graph import nouveau
+from affichage.fonction.graph import nouveau,pie
 from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
 from affichage.fonction.create_pdf import make_pdf
 from affichage.fonction.util import try_radio
@@ -109,7 +109,8 @@ def maping(request):
 
 def graph(request):
     chart=nouveau()
-    return render(request,'affichage/graph.html',{'graph':chart})
+    camenbert=pie()
+    return render(request,'affichage/graph.html',{'graph':chart,'pie':camenbert})
 
 def about(request):
     titre=Titre.objects.all()

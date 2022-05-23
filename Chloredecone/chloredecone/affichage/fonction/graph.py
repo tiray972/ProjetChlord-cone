@@ -41,3 +41,30 @@ def nouveau():
     graph=get_graph()
     return graph
 
+
+def pie():
+    var=pd.DataFrame(tabl(1, '2010-05-01' , '2020-05-29'))
+    print(var.keys())
+    # date=[]
+    lib=[]
+    for i in var.itertuples():
+        
+        # print(i.libelle_parametre,end='')
+        # print( ' ',end='')
+        # print( i.resultat)
+        # date.append(i.heure_prelevement+i.date_prelevement)
+        lib.append(i.libelle_parametre)
+    print((var['libelle_parametre'].value_counts()))
+    plt.switch_backend('AGG')
+    plt.figure()
+    plt.pie(var['libelle_parametre'].value_counts())
+    # plt.plot(,label='solde')
+    # plt.xlabel('temp avec interval de 15min')
+    # plt.ylabel('montant en $')
+    plt.legend()
+    # plt.savefig('static/graph.png')
+    graph=get_graph()
+    return graph
+
+
+
