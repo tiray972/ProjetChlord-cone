@@ -66,23 +66,23 @@ def search(request):
         JSON={}
         for elm in code:
             JSON[elm]=jsonAffiche(elm)
-            
+        
             #print(type(JSON[elm]),'<-----------------------------------')
-        pdf=summary_pdf()
-        day=str(datetime.datetime.today().date())
-        titre=day+"okok"
+        # pdf=summary_pdf()
+        # day=str(datetime.datetime.today().date())
+        # titre=day+"okok"
        
-        pdf.titre=titre
-        make_pdf(titre,recherche)
+        # pdf.titre=titre
+        # make_pdf(titre,recherche)
         
-        check="ville/tmp/"+titre+".pdf"
-        print(check,"<---------------------")
-        path = Path(str(check))
+        # check="ville/tmp/"+titre+".pdf"
+        # print(check,"<---------------------")
+        # path = Path(str(check))
         
-        with path.open(mode='rb') as f:
-            pdf.file = File(f, name=path.name)
-            pdf.save()
-        id=pdf.id
+        # with path.open(mode='rb') as f:
+        #     pdf.file = File(f, name=path.name)
+        #     pdf.save()
+        id=33
         T1=None
         T2=None
         T3=None
@@ -95,10 +95,12 @@ def search(request):
                 T2=tabl(2, str(date_debut) + '-05-01', str(date_fin) + '-05-01')
             if eau_surface:
                 T3=tabl(1, str(date_debut) + '-05-01', str(date_fin) + '-05-01')
-
-
-
-                return render(request,'affichage/search.html',{"data":recherche,
+            notre_json=releve_Ville()
+            notre_json.data={"tab1":T1,"tab2":T2,"tab3":T3}
+            notre_json.nom='votrejson'
+            notre_json.save()
+            id = notre_json.id
+            return render(request,'affichage/search.html',{"data":recherche,
                                                        'ville':code,'JSON':JSON,
                                                        "id":id,"tab1":T1,"tab2":T2,"tab3":T3})
     
