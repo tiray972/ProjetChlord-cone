@@ -29,6 +29,7 @@ urlpatterns = [
     path('upload/<int:id>/',views.upload_file),
     path('search/',views.search,name='recherche'),
     path('map/',views.maping,name='map'),
+    path('g/',views.graph,name='graph'),
     path('presentation/',views.presentation,name='presentation'),
     path('about-us/',views.about),
     path('contact-us/',views.contact_us,name='contact'),
