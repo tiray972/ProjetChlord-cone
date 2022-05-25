@@ -201,7 +201,7 @@ def upload_csv(request,id):
     response = HttpResponse(
         content_type='text/csv',
         headers={'Content-Disposition': 'attachment; filename="fonctionaliter3.csv"'},
-        encodings='utf-8'
+        
     )
     print(type(importer))
     print(type(importer.data))
