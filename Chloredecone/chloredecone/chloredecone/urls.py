@@ -27,6 +27,7 @@ urlpatterns = [
     path('new_base',views.new_base),
     path('upload/',views.upload_file),
     path('upload/<int:id>/',views.upload_file),
+    path('upload_csv/<int:id>/',views.upload_csv),
     path('search/',views.search,name='recherche'),
     path('map/',views.maping,name='map'),
     path('g/',views.graph,name='graph'),

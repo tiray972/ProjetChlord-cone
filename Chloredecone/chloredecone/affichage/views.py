@@ -1,6 +1,9 @@
-
+import csv
+import encodings
 import imp
+import pandas as pd
 from mmap import PAGESIZE
+
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 # from Chloredecone.chloredecone.affichage.fonction.graph import nouveau
@@ -82,7 +85,7 @@ def search(request):
         # with path.open(mode='rb') as f:
         #     pdf.file = File(f, name=path.name)
         #     pdf.save()
-        id=33
+        
         T1=None
         T2=None
         T3=None
@@ -184,7 +187,23 @@ def upload_file(request, id):
     #         return redirect(hello)
     # else : form = summary_pdf()
     # return render(request, "affichage/upload.html",{"form":form})"""
+def upload_csv(request,id):
+    importer=releve_Ville.objects.get(id=id)
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="fonctionaliter3.csv"'},
+        encodings='utf-8'
+    )
+    print(type(importer))
+    print(type(importer.data))
+    df=pd.DataFrame(importer.data["tab1"])
+    writer = csv.writer(response)
+    for i in df.itertuples():
+        writer.writerow(i)
+        # writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
 
+    return response
 def listing(request):
     return HttpResponse("<p>la liste<p>")
 
