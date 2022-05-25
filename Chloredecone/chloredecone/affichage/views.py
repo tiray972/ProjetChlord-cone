@@ -71,21 +71,21 @@ def search(request):
         #     JSON[elm]=jsonAffiche(elm)
         
             #print(type(JSON[elm]),'<-----------------------------------')
-        pdf=summary_pdf()
-        day=str(datetime.datetime.today().date())
-        titre=day+"okok"
-       
-        pdf.titre=titre
-        make_pdf(titre,recherche)
-        
-        check="ville/tmp/"+titre+".pdf"
-        print(check,"<---------------------")
-        path = Path(str(check))
-        
-        with path.open(mode='rb') as f:
-            pdf.file = File(f, name=path.name)
-            pdf.save()
-        id_pdf=pdf.id
+        # pdf=summary_pdf()
+        # day=str(datetime.datetime.today().date())
+        # titre=day+"okok"
+    #    
+        # pdf.titre=titre
+        # make_pdf(titre,recherche)
+        # 
+        # check="ville/tmp/"+titre+".pdf"
+        # print(check,"<---------------------")
+        # path = Path(str(check))
+        # 
+        # with path.open(mode='rb') as f:
+            # pdf.file = File(f, name=path.name)
+            # pdf.save()
+        id_pdf=33
         T1=None
         T2=None
         T3=None
@@ -103,6 +103,7 @@ def search(request):
             notre_json.nom='votrejson'
             notre_json.save()
             id = notre_json.id
+            print(T2[0].keys())
             return render(request,'affichage/search.html',{"data":recherche,
                                                        'ville':code,'JSON':JSON,
                                                        "id":id,"id_pdf":id_pdf,"tab1":T1,"tab2":T2,"tab3":T3})
@@ -205,7 +206,7 @@ def upload_csv(request,id):
     )
     print(type(importer))
     print(type(importer.data))
-    df=pd.DataFrame(importer.data["tab1"])
+    df=pd.DataFrame(importer.data["tab2"])
     writer = csv.writer(response)
     for i in df.itertuples():
         writer.writerow(i)
