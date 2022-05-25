@@ -27,7 +27,40 @@
       <a href="../upload/{{id_pdf}}/" class="btn btn-primary"> Download pdf</a>
     </div>
     
-{% if tab1 %}
+{% if tab2 %}
+        <div class="container">
+          <h2 class="text-center"><u>tableau hubeau</u></h2><br>
+          <table border="2" bgcolor="blue" class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th>lieux surveillé</th>
+                <th>logitude</th>
+                <th>latitude</th>
+                <th>Profondeur</th>
+                <th>nom masse d'eau</th>
+                <th>donnée</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            {% for i in tab2 %}
+
+              <tr>
+                <td>{{i.libelle_lieusurv}}</td>
+                <td>{{i.longitude}}</td>
+                <td>{{i.latitude}}</td>
+                <td>{{i.prof_lieusurv}}</td>
+                <td>{{i.noms_masses_eau}}</td>
+                <td>{{i.noms_taxons_suivis}}</td>
+
+              </tr>
+            {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+        {% endif %}
+        {% if tab1 %}
         <div class="container">
           <h2 class="text-center"><u>tableau hubeau</u></h2><br>
           <table border="2" bgcolor="blue" class="table table-dark table-striped">
@@ -42,35 +75,6 @@
             <tbody>
 
             {% for i in tab1 %}
-
-              <tr>
-                <td>{{i.libelle_parametre}}</td>
-                <td>{{i.libelle_station}}</td>
-                <td>{{i.nom_producteur}}</td>
-                <td>{{i.}}</td>
-
-              </tr>
-            {% endfor %}
-
-            </tbody>
-          </table>
-        </div>
-        {% endif %}
-        {% if tab2 %}
-        <div class="container">
-          <h2 class="text-center"><u>tableau hubeau</u></h2><br>
-          <table border="2" bgcolor="blue" class="table table-dark table-striped">
-            <thead>
-              <tr>
-                <th>Code station</th>
-                <th>nom</th>
-                <th>nom_producteur</th>
-                <th>donnée</th>
-              </tr>
-            </thead>
-            <tbody>
-
-            {% for i in tab2 %}
 
               <tr>
                 <td>{{i.libelle_parametre}}</td>
