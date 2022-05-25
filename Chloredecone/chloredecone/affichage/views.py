@@ -71,21 +71,21 @@ def search(request):
         #     JSON[elm]=jsonAffiche(elm)
         
             #print(type(JSON[elm]),'<-----------------------------------')
-        # pdf=summary_pdf()
-        # day=str(datetime.datetime.today().date())
-        # titre=day+"okok"
+        pdf=summary_pdf()
+        day=str(datetime.datetime.today().date())
+        titre=day+"okok"
        
-        # pdf.titre=titre
-        # make_pdf(titre,recherche)
+        pdf.titre=titre
+        make_pdf(titre,recherche)
         
-        # check="ville/tmp/"+titre+".pdf"
-        # print(check,"<---------------------")
-        # path = Path(str(check))
+        check="ville/tmp/"+titre+".pdf"
+        print(check,"<---------------------")
+        path = Path(str(check))
         
-        # with path.open(mode='rb') as f:
-        #     pdf.file = File(f, name=path.name)
-        #     pdf.save()
-        
+        with path.open(mode='rb') as f:
+            pdf.file = File(f, name=path.name)
+            pdf.save()
+        id_pdf=pdf.id
         T1=None
         T2=None
         T3=None
@@ -105,7 +105,7 @@ def search(request):
             id = notre_json.id
             return render(request,'affichage/search.html',{"data":recherche,
                                                        'ville':code,'JSON':JSON,
-                                                       "id":id,"tab1":T1,"tab2":T2,"tab3":T3})
+                                                       "id":id,"id_pdf":id_pdf,"tab1":T1,"tab2":T2,"tab3":T3})
     
     return render(request,'affichage/hello.html')
 
@@ -152,25 +152,33 @@ def new_base(req):
     return render(req,'affichage/new_base.html')
  
 def upload_file(request, id):
-        data=releve_Ville.objects.get(id=id)
-        buf=io.BytesIO()
-        c=canvas.Canvas(buf,pagesize=letter,bottomup=0)
-        textob=c.beginText()
-        textob.setTextOrigin(inch, inch)
-        textob.setFont("Helvetica",14)
-        lines=[
-            str(data.data),
+    project =summary_pdf.objects.get(id=id)
+    fl_path = project.file.path
+    print(fl_path,"---------------")
+    filename = project.file.name
+    with open(fl_path, 'rb') as pdf:
+                response = HttpResponse(pdf.read(), content_type='application/pdf')        
+                response['Content-Disposition'] = 'attachment ; filename=%s' % filename        
+                return response
+        # data=releve_Ville.objects.get(id=id)
+        # buf=io.BytesIO()
+        # c=canvas.Canvas(buf,pagesize=letter,bottomup=0)
+        # textob=c.beginText()
+        # textob.setTextOrigin(inch, inch)
+        # textob.setFont("Helvetica",14)
+        # lines=[
+        #     str(data.data),
 
-            "ligne 1",
-            "ligne2"
-        ]
-        for line in lines:
-            textob.textLine(line)
-        c.drawText(textob)
-        c.showPage()
-        c.save()
-        buf.seek(0)
-        return FileResponse(buf, as_attachment=True,filename="test.pdf")
+        #     "ligne 1",
+        #     "ligne2"
+        # ]
+        # for line in lines:
+        #     textob.textLine(line)
+        # c.drawText(textob)
+        # c.showPage()
+        # c.save()
+        # buf.seek(0)
+        # return FileResponse(buf, as_attachment=True,filename="test.pdf")
 
     # project =summary_pdf.objects.get(id=id)
     # fl_path = project.file.path
