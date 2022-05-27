@@ -71,21 +71,22 @@ def search(request):
         #     JSON[elm]=jsonAffiche(elm)
         
             #print(type(JSON[elm]),'<-----------------------------------')
-        # pdf=summary_pdf()
-        # day=str(datetime.datetime.today().date())
-        # titre=day+"okok"
-    #    
-        # pdf.titre=titre
-        # make_pdf(titre,recherche)
-        # 
-        # check="ville/tmp/"+titre+".pdf"
-        # print(check,"<---------------------")
-        # path = Path(str(check))
-        # 
-        # with path.open(mode='rb') as f:
-            # pdf.file = File(f, name=path.name)
-            # pdf.save()
-        id_pdf=33
+        pdf=summary_pdf()
+        day=str(datetime.datetime.today().date())
+        titre=day+"okok"
+       
+        pdf.titre=titre
+        make_pdf(titre,recherche)
+        
+        check="ville/tmp/"+titre+".pdf"
+        print(check,"<---------------------")
+        path = Path(str(check))
+        
+        with path.open(mode='rb') as f:
+            pdf.file = File(f, name=path.name)
+            pdf.save()
+        id=pdf.id
+        
         T1=None
         T2=None
         T3=None
@@ -196,23 +197,54 @@ def upload_file(request, id):
     #         return redirect(hello)
     # else : form = summary_pdf()
     # return render(request, "affichage/upload.html",{"form":form})"""
-def upload_csv(request,id):
+def upload_csv3(request,id):
     importer=releve_Ville.objects.get(id=id)
     # Create the HttpResponse object with the appropriate CSV header.
-    response = HttpResponse(
-        content_type='text/csv',
-        headers={'Content-Disposition': 'attachment; filename="fonctionaliter3.csv"'},
-        
-    )
     print(type(importer))
     print(type(importer.data))
-    df=pd.DataFrame(importer.data["tab2"])
-    writer = csv.writer(response)
-    for i in df.itertuples():
-        writer.writerow(i)
-        # writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
-
+    if importer.data["tab3"]:
+        response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="tableu3.csv"'})
+        df=pd.DataFrame(importer.data["tab3"])
+        writer = csv.writer(response)
+        for i in df.itertuples():
+            writer.writerow(i)
+            # writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
     return response
+
+def upload_csv1(request,id):
+    importer=releve_Ville.objects.get(id=id)
+    # Create the HttpResponse object with the appropriate CSV header.
+    
+    print(type(importer))
+    print(type(importer.data))
+    if importer.data["tab1"]:
+        response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="tablau1.csv"'})
+        df=pd.DataFrame(importer.data["tab1"])
+        writer = csv.writer(response)
+        for i in df.itertuples():
+            writer.writerow(i)
+    return response
+
+def upload_csv2(request,id):
+    importer=releve_Ville.objects.get(id=id)
+    # Create the HttpResponse object with the appropriate CSV header.
+    
+    print(type(importer))
+    print(type(importer.data))
+    if importer.data["tab2"]:
+        response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="tableau2.csv"'})
+        df=pd.DataFrame(importer.data["tab2"])
+        writer = csv.writer(response)
+        for i in df.itertuples():
+            writer.writerow(i)
+    return response
+
 def listing(request):
     return HttpResponse("<p>la liste<p>")
 

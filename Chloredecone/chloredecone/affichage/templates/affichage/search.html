@@ -23,7 +23,10 @@
       </div>
     </div>
     <div>
-      <a href="../upload_csv/{{id}}/" class="btn btn-primary"> Download csv</a>
+      
+      {% if tab1 %}<a href="../upload_csv1/{{id}}/" class="btn btn-primary"> Download csv tab1</a>{% endif %}
+      {% if tab2 %}<a href="../upload_csv2/{{id}}/" class="btn btn-primary"> Download csv tab2 </a>{% endif %}
+      {% if tab3 %}<a href="../upload_csv3/{{id}}/" class="btn btn-primary"> Download csv tab3</a>{% endif %}
       <a href="../upload/{{id_pdf}}/" class="btn btn-primary"> Download pdf</a>
     </div>
     
