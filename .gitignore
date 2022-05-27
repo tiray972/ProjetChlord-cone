@@ -5,3 +5,6 @@ Chloredecone/chloredecone/affichage/fonction/__pycache__/ApiExport.cpython-310.p
 *.pyc
 *.pyc
 Chloredecone/chloredecone/affichage/fonction/__pycache__/ApiExport.cpython-310.pyc
+*.pdf
+*.pyc
+Chloredecone/chloredecone/affichage/__pycache__/__init__.cpython-310.pyc
