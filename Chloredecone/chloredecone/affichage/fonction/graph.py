@@ -5,6 +5,8 @@ from affichage.fonction.ApiExport import tabl
 import pandas as pd
 from matplotlib import pyplot as plt
 
+# permet dencoder les graphique mathplotlib pour pouvoir obtenir les photo dans une page html avec django
+
 def get_graph():
     buffer =BytesIO()
     plt.savefig(buffer,format='png')
@@ -16,7 +18,8 @@ def get_graph():
     return graph
 
 
-
+# recuperent les donne grace a table et les traite avec pandas et mathplotlib pour obtenir un graph
+#
 def nouveau():
     var=pd.DataFrame(tabl(1, '2010-05-01' , '2020-05-29'))
     print(var.keys())
@@ -41,7 +44,7 @@ def nouveau():
     graph=get_graph()
     return graph
 
-
+# recuperent les donne grace a table et les traite avec pandas et mathplotlib pour obtenir un diagrame camenbert
 def pie():
     var=pd.DataFrame(tabl(1, '2010-05-01' , '2020-05-29'))
     print(var.keys())
