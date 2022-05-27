@@ -50,8 +50,8 @@ def creationDurlHubeau(code_departement='972',code_station=''):
     Base ='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
     url=requests.get(Base,params=Parametre)
     return url.url
-#
-#
+
+
 #les trois fontion suvante nous sere a pçour resortir les page xml que l'on obtien avec les request rest fourni part ades
 def testrequet(url,paramtre=None,hed=None):
     if paramtre:
@@ -75,7 +75,7 @@ def jsonAffiche(code):
 #---------------------------------------------------------------------------------------------------------------------------
 
 #hubeau nous permet de resortir directemnt un fichier json ou un document csv naienmoins nous avons 
-# que 1000 ligne de donnée par requete 
+# que 5000 ligne de donnée par requete 
 httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
 dico={'code_departement':'972'}
 def donnejson(url,param):
@@ -100,20 +100,11 @@ parr={'service':'SANDRE:Metadata',
         'version':'1.0.0','mode':'1' ,
         'referentiel':'NGF',
         'code':'1186ZZ0185/P' }
-# s=requests.get(httpjson,dico) ,
-# print(s.text)
-# l=donnejson(httpjson,dico),,'parameter':'1301'
-'''#utiliser plus tard
-j=json.loads(requests.get(creationDurlHubeau()).text)
-print(j['data'][0]['libelle_station'],end='')
-print(' |prelevé le :',j['data'][0]['date_prelevement'])
-print(j['data'][0]['code_unite'],j['data'][0]['symbole_unite'])
-print(' libelle parametre :',j['data'][0]['libelle_parametre'])
-'''
-# print(j['data'][0].keys())
-# print(CreationUrlAdes('1186ZZ0185/P'))
-# print(creationDurlHubeau())
 
+
+
+# pour faciliter lappele des APi nous avons mis la fonction tabl qui permet d'alimenter nos tableau avec les donneé voulu 
+# nous avons 3 choix qui sont les type de donnée rechercher(eau de surface ,eau sousterraine,littoraux)
 #                           format de la date 2014-07-06
 def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et bouttons dispos sur la page de recherche
     littoraux='https://hubeau.eaufrance.fr/api/vbeta/surveillance_littoral/lieux_surv?distance=70&latitude=14.6&longitude=-61'
@@ -126,12 +117,12 @@ def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et b
     if choix==1:
         
         try:    
-            return (donnejson(eausurface,dico))['data']
+            return (donnejson(eausurface,dico))['data']# la nous utilisons la fonction donné json créé au prealable 
         except:
             return None
     if choix==2:
         try:    
-            return json.loads(requests.get(littoraux,dico1).text)['data']#
+            return json.loads(requests.get(littoraux,dico1).text)['data']# nous retournous unique ment les donnée qui est une liste de json qui a pour clé data
         except:
             return None
     if choix==3:
