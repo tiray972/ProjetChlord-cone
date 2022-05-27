@@ -26,10 +26,10 @@ urlpatterns = [
     path('tab/',views.Tableau,name='tableau'),
     path('new_base',views.new_base),
     path('upload/',views.upload_file),
-    path('upload/<int:id>/',views.upload_file),
-    path('upload_csv1/<int:id>/',views.upload_csv1),
-    path('upload_csv2/<int:id>/',views.upload_csv2),
-    path('upload_csv3/<int:id>/',views.upload_csv3),
+    path('upload/<int:id>/',views.upload_file),       #le <int:id> fait référence au type et au champ dans la base de donnée
+    path('upload_csv1/<int:id>/',views.upload_csv1),  # grace au url on récupère l'id d'une page a une autre
+    path('upload_csv2/<int:id>/',views.upload_csv2),  # maintenant tout le monde peut modifier l'url depuis le navigateur et mettre l'id de son choix
+    path('upload_csv3/<int:id>/',views.upload_csv3), #une solution est de hasher l'id
     path('search/',views.search,name='recherche'),
     path('map/',views.maping,name='map'),
     path('g/',views.graph,name='graph'),
