@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 #from Chloredecone.chloredecone.affichage.views import search
 from affichage import views
-
+#création de toute les url de l'application
 urlpatterns = [
     path('',views.hello,name='index'),
     path('admin/', admin.site.urls),
@@ -35,8 +35,5 @@ urlpatterns = [
     path('g/',views.graph,name='graph'),
     path('presentation/',views.presentation,name='presentation'),
     path('about-us/',views.about),
-    path('contact-us/',views.contact_us,name='contact'),
-    path('listing',views.listing),
-    path('bands_list/',views.bands_list,name='band-list'),
-    path('bands_list/<int:id>/',views.bands_list_detail,name='bands_list_d'),
+    
 ]
