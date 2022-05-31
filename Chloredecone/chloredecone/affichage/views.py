@@ -18,7 +18,7 @@ from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
 
 # importation local
-from affichage.fonction.ApiExport import jsonAffiche,tabl
+from affichage.fonction.ApiExport import tabl
 from affichage.fonction.graph import nouveau,pie
 from affichage.fonction.carte import mapmaxmin,surfandsouter,littoraux
 from affichage.fonction.create_pdf import make_pdf
@@ -45,6 +45,11 @@ def search(request):
         date_debut=request.POST['date_deb']
         date_fin=request.POST['date_fin']
         #(gestion a amélioré)
+        insee=[recherche[i] for i in range(len(recherche)) if recherche[i] in ["0","1","2","3","4","5","6","7","8","9"]]
+        insee_code=""
+        for chiffre in insee:
+            insee_code += chiffre
+        print(insee_code)
         try:
             ss_terr=request.POST['sous_terrain']
         except:
@@ -78,15 +83,10 @@ def search(request):
         pdf=summary_pdf()                       #Création d'un objet pdf qui sera mit en base de donné
         titre=str(datetime.datetime.today().date())   # création du titre du PDF                           
         pdf.titre=titre                           
-        make_pdf(titre,recherche)               # création du pdf en lui meme en fonction de la ville souhaité
+                                                  # création du pdf en lui meme en fonction de la ville souhaité
         
-        check="ville/tmp/"+titre+".pdf"          #Définition d'un chemin relatif 
-        print(check,"<---------------------")    #Debug
-        path = Path(str(check))                 #Formatage du format du chemin
-        
-        with path.open(mode='rb') as f:          # on ouvre le  pdf depuis le dossier temporaire
-            pdf.file = File(f, name=path.name)   #on enregistre le pdf dans dans l'objet pdf
-            pdf.save()                           # puis on le met en base de donné
+         
+        pdf.save()                           # puis on le met en base de donné
         id_pdf=pdf.id                            # très important on récupère son id
         #Instanciation des 3 tableaux de données
         T1=None
@@ -97,20 +97,20 @@ def search(request):
         if ss_terr or surface_terr or eau_surface:
             choix=0
             if ss_terr:
-                T1=tabl(3, str(date_debut) , str(date_fin) ) #création des tableaux
+                T1=tabl(3, str(date_debut) , str(date_fin) ,code_insee= insee_code) #création des tableaux
             if surface_terr:
                 T2=tabl(2, str(date_debut) , str(date_fin) )
             if eau_surface:
-                T3=tabl(1, str(date_debut) , str(date_fin) )
+                T3=tabl(1, str(date_debut) , str(date_fin) , code_insee= insee_code)
             notre_json=releve_Ville()                       #création de l'objet JSON
             notre_json.data={"tab1":T1,"tab2":T2,"tab3":T3} # Incorporation des 3 tableau dans l'objet
             notre_json.nom='votrejson'   
             notre_json.save()                               #enregistrement en base de donné (sans cela impossible d'nvoyer les donnés a la contruction du csv)
             id = notre_json.id                              #récupération de l'id du JSON
-            print(T2[0].keys())                             #débug
+                                        #débug
             return render(request,'affichage/search.html',{"data":recherche,
                                                        'ville':NONE,'JSON':NONE,
-                                                       "id":id,"id_pdf":id_pdf,"tab1":T1,"tab2":T2,"tab3":T3})
+                                                       "id":id,"id_pdf":id_pdf,"tab1":T1['data'],"tab2":T2['data'],"tab3":T3['data']})
     
     return render(request,'affichage/hello.html')
 #==========================================(debug)=========================================
@@ -146,8 +146,22 @@ def Tableau(request):
 def new_base(req):
     return render(req,'affichage/new_base.html')
  #========================(gestion du téléchargement pdf)==========================
-def upload_file(request, id):
-    project =summary_pdf.objects.get(id=id) # récupération du bon pdf grace a l'ID prit dans le lien(faire un hash de l'id pour éviter toute modification de l'url)
+def upload_file(request, id,id_json):
+    pdf=summary_pdf.objects.get(id=id) 
+    json=releve_Ville.objects.get(id=id_json)                     #Création d'un objet pdf qui sera mit en base de donné
+    print(json.data['first'])
+    titre=str(datetime.datetime.today().date())   # création du titre du PDF                           
+    pdf.titre=titre                           
+    make_pdf(titre,recherche)               # création du pdf en lui meme en fonction de la ville souhaité
+        
+    check="ville/tmp/"+titre+".pdf"          #Définition d'un chemin relatif 
+    print(check,"<---------------------")    #Debug
+    path = Path(str(check))                 #Formatage du format du chemin
+        
+    with path.open(mode='rb') as f:          # on ouvre le  pdf depuis le dossier temporaire
+        pdf.file = File(f, name=path.name)   #on enregistre le pdf dans dans l'objet pdf
+        pdf.save()           
+     # récupération du bon pdf grace a l'ID prit dans le lien(faire un hash de l'id pour éviter toute modification de l'url)
     fl_path = project.file.path             #récupération du chemin du fichier 
     print(fl_path,"---------------")         # degug
     filename = project.file.name            # récupération du nom du fichier
@@ -200,14 +214,13 @@ def upload_file(request, id):
 #==================(télécgargement csv)==========================
 def upload_csv3(request,id):
     importer=releve_Ville.objects.get(id=id)  #récupération du JSON par son id
-    
     print(type(importer))       #debug
     print(type(importer.data))  #debug
-    if importer.data["tab3"]:   
+    if importer.data["tab3"]['data']:   
         response = HttpResponse(
         content_type='text/csv',
         headers={'Content-Disposition': 'attachment; filename="tableu3.csv"'})# on défini le type et le nom du fichier a retourner
-        df=pd.DataFrame(importer.data["tab3"])                                #on tranforme le JSON en DataFrame
+        df=pd.DataFrame(importer.data["tab3"]['data'])                                #on tranforme le JSON en DataFrame
         writer = csv.writer(response)                                        
         for i in df.itertuples():                                              #POur chaque ligne du JSON en l'implémente dans le dataframe puis on envoie la responce
             writer.writerow(i)
@@ -222,11 +235,11 @@ def upload_csv1(request,id):
     
     print(type(importer)) 
     print(type(importer.data))
-    if importer.data["tab1"]:
+    if importer.data["tab1"]['data']:
         response = HttpResponse(
         content_type='text/csv',
         headers={'Content-Disposition': 'attachment; filename="tablau1.csv"'})
-        df=pd.DataFrame(importer.data["tab1"])
+        df=pd.DataFrame(importer.data["tab1"]['data'])
         writer = csv.writer(response)
         for i in df.itertuples():
             writer.writerow(i)
@@ -239,11 +252,11 @@ def upload_csv2(request,id):
     
     print(type(importer))
     print(type(importer.data))
-    if importer.data["tab2"]:
+    if importer.data["tab2"]['data']:
         response = HttpResponse(
         content_type='text/csv',
         headers={'Content-Disposition': 'attachment; filename="tableau2.csv"'})
-        df=pd.DataFrame(importer.data["tab2"])
+        df=pd.DataFrame(importer.data["tab2"]['data'])
         writer = csv.writer(response)
         for i in df.itertuples():
             writer.writerow(i)

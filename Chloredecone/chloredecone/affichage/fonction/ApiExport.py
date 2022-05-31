@@ -51,83 +51,32 @@ def creationDurlHubeau(code_departement='972',code_station=''):
     url=requests.get(Base,params=Parametre)
     return url.url
 
-
-#les trois fontion suvante nous sere a pçour resortir les page xml que l'on obtien avec les request rest fourni part ades
-def testrequet(url,paramtre=None,hed=None):
-    if paramtre:
-        if hed:
-            reponce =requests.get(url,params=paramtre,headers=hed)
-        else:
-            reponce =requests.get(url,params=paramtre)
-    else:
-        reponce=requests.get(url)
-    if reponce.ok:
-        return reponce.url,reponce.headers['Content-Type']
-    else:
-        return "L'URL n'as pas bien repondue"
-#apres avoir tester la requeet nous ressortons les donnée si il sagit bien de text/xml 
-def resortirData(url,paramtre=None,hed=None):
-    if testrequet(url,paramtre,hed)[1]=='text/xml;charset=utf-8'  :
-        return(requests.get(testrequet(url,paramtre,hed)[0]).text)
-# puit ensuite on converti le fichier en json pour pouvoir lexploiter plus aissement  
-def jsonAffiche(code):
-    return json.loads(json.dumps(xmltodict.parse(resortirData(CreationUrlAdes(code=code)))))
-#---------------------------------------------------------------------------------------------------------------------------
-
-#hubeau nous permet de resortir directemnt un fichier json ou un document csv naienmoins nous avons 
-# que 5000 ligne de donnée par requete 
-httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
-dico={'code_departement':'972'}
-def donnejson(url,param):
-    if testrequet(url,paramtre=param)[1]=='application/json;charset=UTF-8':
-        return json.loads(requests.get(testrequet(url,paramtre=param)[0]).text)
-    
-  
-
-# ades ayan plusieur service jai repertorier les base modal pour chaque request
-# car elle change a chaaque service diferent (sercvice graphique ,metadata,...)
-# de plus il y as des parrametre differrent parn service utiliser 
-# car nous ne somme par satifait du du service tableau statitique qui ne resort
-#  que une date de premier prelevement, une de dernier ,une moyenne.
-adesDATA='http://services.ades.eaufrance.fr/datasheet/?' 
-adesgra='http://services.ades.eaufrance.fr/adesgraphiques/?'
-adesmeta='http://services.ades.eaufrance.fr/metadata/?'
-ades='http://services.ades.eaufrance.fr/disceau/? '
-adessyn='http://services.ades.eaufrance.fr/ServicesPublic/ServicesAdesTableau/1/DataSheet_1.ashx? '
-#la variable parr nous montre a peut prés les parrametre utiliser lors des request d'ades 
-parr={'service':'SANDRE:Metadata',
-        'request':'GetMetadataSandre',
-        'version':'1.0.0','mode':'1' ,
-        'referentiel':'NGF',
-        'code':'1186ZZ0185/P' }
-
-
-
 # pour faciliter lappele des APi nous avons mis la fonction tabl qui permet d'alimenter nos tableau avec les donneé voulu 
 # nous avons 3 choix qui sont les type de donnée rechercher(eau de surface ,eau sousterraine,littoraux)
 #                           format de la date 2014-07-06
-def tabl(choix,dateDeb,dateFin,dep='972'): #les paarrametre seront les form et bouttons dispos sur la page de recherche
+def tabl(choix,dateDeb,dateFin,dep='972',code_insee="97230"): #les paarrametre seront les form et bouttons dispos sur la page de recherche
     littoraux='https://hubeau.eaufrance.fr/api/vbeta/surveillance_littoral/lieux_surv?distance=70&latitude=14.6&longitude=-61'
     eausurface='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
     eausouter="https://hubeau.eaufrance.fr/api/v1/qualite_nappes/analyses"
     # httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
-    dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin,'size':5000}#
-    dico1={}#
-    dicosouter={'num_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin}
+    dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin,'size':5000,'code_commune':code_insee}# eau surface
+    dico1={}# litoraux
+    dicosouter={'num_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin,"code_insee_actuel":code_insee}#eau ss-terrain
     if choix==1:
         
         try:    
-            return (donnejson(eausurface,dico))['data']# la nous utilisons la fonction donné json créé au prealable 
+            
+            return json.loads(requests.get(eausurface,dico).text)# la nous utilisons la fonction donné json créé au prealable 
         except:
             return None
     if choix==2:
         try:    
-            return json.loads(requests.get(littoraux,dico1).text)['data']# nous retournous unique ment les donnée qui est une liste de json qui a pour clé data
+            return json.loads(requests.get(littoraux,dico1).text)# nous retournous unique ment les donnée qui est une liste de json qui a pour clé data
         except:
             return None
     if choix==3:
         try:    
-            return json.loads(requests.get(eausouter,dicosouter).text)['data']#
+            return json.loads(requests.get(eausouter,dicosouter).text)#
         except:
             return None
 
