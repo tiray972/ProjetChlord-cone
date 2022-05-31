@@ -149,7 +149,7 @@ def new_base(req):
 def upload_file(request, id,id_json):
     pdf=summary_pdf.objects.get(id=id) 
     json=releve_Ville.objects.get(id=id_json)                     #Création d'un objet pdf qui sera mit en base de donné
-    print(json.data['first'])
+    print(json.data['tab1'])
     titre=str(datetime.datetime.today().date())   # création du titre du PDF                           
     pdf.titre=titre                           
     make_pdf(titre,recherche)               # création du pdf en lui meme en fonction de la ville souhaité
