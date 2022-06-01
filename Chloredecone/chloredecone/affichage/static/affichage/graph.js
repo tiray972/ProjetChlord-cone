@@ -5,7 +5,14 @@ function graphique(tritres,donne){
         data:{
             labels:tritres,
             datasets:[{
-                data:donne
+                data:donne,
+                backgroundColor:[
+                    "crimson",
+                    "lightgreen",
+                    "lightblue",
+                    "violet"
+                ]
+
             }]
         }
     })
