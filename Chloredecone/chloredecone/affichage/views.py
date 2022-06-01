@@ -80,14 +80,14 @@ def search(request):
             print(type(JSON[elm]),'<-----------------------------------')
         """
         #création du pdf 
-        pdf=summary_pdf()                       #Création d'un objet pdf qui sera mit en base de donné
-        titre=str(datetime.datetime.today().date())   # création du titre du PDF                           
-        pdf.titre=titre                           
-                                                  # création du pdf en lui meme en fonction de la ville souhaité
+        # pdf=summary_pdf()                       #Création d'un objet pdf qui sera mit en base de donné
+        # titre=str(datetime.datetime.today().date())   # création du titre du PDF                           
+        # pdf.titre=titre                           
+        #                                           # création du pdf en lui meme en fonction de la ville souhaité
         
          
-        pdf.save()                           # puis on le met en base de donné
-        id_pdf=pdf.id                            # très important on récupère son id
+        # pdf.save()                           # puis on le met en base de donné
+        id_pdf=33                          # très important on récupère son id
         #Instanciation des 3 tableaux de données
         T1=None
         T2=None
@@ -131,17 +131,10 @@ def presentation(request):
     map={'m1':mapmaxmin,'m2':surfandsouter,'m3':littoraux}
     return render(request,'affichage/amap.html',map)
 #==========================================(debug)=========================================
-def Tableau(request):
+def Tableau(request,id):
+    importation=releve_Ville.objects.get(id=id)
     
-    data=tabl(1,'2020-05-01','2022-05-06')
-    T1=tabl(3, '2020-05-01' , '2022-05-06' )
-    T2=tabl(2, '2020-05-01' , '2020-05-29' )
-    T3=tabl(1, '2020-05-01' , '2020-05-29' )
-
-    data2=tabl(2,'2020-05-01','2022-05-06')
-    context = {'d': T3,'deux': data2}
-  
-    return render(request, 'affichage/tableau.html', context)
+    return render(request, 'affichage/tableau.html')
 #==========================================(debug)=========================================
 def new_base(req):
     return render(req,'affichage/new_base.html')

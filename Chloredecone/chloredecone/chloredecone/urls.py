@@ -23,7 +23,7 @@ urlpatterns = [
     path('',views.hello,name='index'),
     path('admin/', admin.site.urls),
     path('hello/',views.hello),
-    path('tab/',views.Tableau,name='tableau'),
+    path('tab/<int:id>/',views.Tableau,name='tableau'),
     path('new_base',views.new_base),
     path('upload/',views.upload_file),
     path('upload/<int:id>/<int:id_json>/',views.upload_file),       #le <int:id> fait référence au type et au champ dans la base de donnée
