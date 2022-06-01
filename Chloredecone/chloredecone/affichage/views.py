@@ -3,6 +3,7 @@ import csv
 import encodings
 import imp
 from pickle import NONE
+from tkinter import Variable
 import pandas as pd
 from mmap import PAGESIZE
 from django.shortcuts import render ,redirect
@@ -133,8 +134,21 @@ def presentation(request):
 #==========================================(debug)=========================================
 def Tableau(request,id):
     importation=releve_Ville.objects.get(id=id)
+    listjson=importation.data["tab3"]['data']
+    # print(listjson)
+    dfjson=pd.DataFrame(listjson)
+    # print(dfjson)
+    # print((dfjson['libelle_parametre'].value_counts()).keys())
+    libelle_parametre=[i for i in (dfjson['libelle_parametre'].value_counts()).keys()]
+    # libelle_parametre=[i for i in (dfjson['libelle_parametre'].value_counts()).values()]
+    print(len(libelle_parametre))
+    nombre=[i for i in range(len(libelle_parametre))]
+   
+            
+
+
     
-    return render(request, 'affichage/tableau.html')
+    return render(request, 'affichage/tableau.html',{"n":nombre,"l":libelle_parametre})
 #==========================================(debug)=========================================
 def new_base(req):
     return render(req,'affichage/new_base.html')

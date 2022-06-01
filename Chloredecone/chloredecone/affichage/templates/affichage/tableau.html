@@ -10,96 +10,24 @@
         </div>
     </header>
     <body>
-        {% if d %}
-        <div class="container">
-          <h2 class="text-center"><u>tableau hubeau</u></h2><br>            
-          <table border="2" bgcolor="blue" class="table table-dark table-striped">
-            <thead>
-              <tr>
-                <th>Code station</th>
-                <th>nom</th>
-                <th>nom_producteur</th>
-                <th>donnée</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-            {% for i in d %}
-           
-              <tr>
-                <td>{{i.code_station}}</td>
-                <td>{{i.libelle_station}}</td>
-                <td>{{i.nom_producteur}}</td>
-                <td>{{i.}}</td>
-                
-              </tr>
-            {% endfor %}
-            
-            </tbody>
-          </table>
-        </div>
-        {% endif %}   
-        {% if deux %}
-        <div class="container">
-          <h2 class="text-center"><u>tableau hubeau</u></h2><br>            
-          <table border="2" bgcolor="blue" class="table table-dark table-striped">
-            <thead>
-              <tr>
-                <th>Code station</th>
-                <th>nom</th>
-                <th>nom_producteur</th>
-                <th>donnée</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-            {% for i in deux %}
-            
-           
-              <tr>
-                <td>{{i.code_station}}</td>
-                <td>{{i.libelle_station}}</td>
-                <td>{{i.nom_producteur}}</td>
-                <td>{{i.}}</td>
-                
-              </tr>
-            {% endfor %}
-            
-            </tbody>
-          </table>
-        </div>
-        {% endif %}
-        {% if trois %}
-        <div class="container">
-          <h2 class="text-center"><u>tableau hubeau</u></h2><br>            
-          <table border="2" bgcolor="blue" class="table table-dark table-striped">
-            <thead>
-              <tr>
-                <th>Code station</th>
-                <th>nom</th>
-                <th>nom_producteur</th>
-                <th>donnée</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-            {% for i in trois %}
-            
-           
-              <tr>
-                <td>{{i.code_station}}</td>
-                <td>{{i.libelle_station}}</td>
-                <td>{{i.nom_producteur}}</td>
-                <td>{{i.}}</td>
-                
-              </tr>
-            {% endfor %}
-            
-            </tbody>
-          </table>
-        </div>
-        {% endif %}
-        </body>
+        <!-- <p>{{l}}</p> -->
+        <input type="text" placeholder={{l}} id="in">
+        <input type="text" placeholder={{n}} id="iN">
+        <canvas id="barCanvas" role="img"></canvas>   
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {% load static %}
+<script src="{% static 'affichage/graph.js' %}" ></script >
+   
+    <script>
+        var input = document.getElementById("in").value;
+        var input2 = document.getElementById("iN").value;
+        const myArray = input.split(",");
+        const myArray2 = input2.split(",");        
+        console.log(typeof(myArray));
+        var l =0;
+        graphique(l,myArray2);
+    </script>
+    </body>
 
     {% endblock %}
 </html> 
