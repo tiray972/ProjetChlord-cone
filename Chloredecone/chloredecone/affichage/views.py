@@ -142,14 +142,17 @@ def Tableau(request,id):
     # print((dfjson['libelle_parametre'].value_counts()).keys())
     libelle_parametre=[i for i in (dfjson['libelle_parametre'].value_counts()).keys()]
     # libelle_parametre=[i for i in (dfjson['libelle_parametre'].value_counts()).values()]
-    print(len(libelle_parametre))
+    srting=""
+    for i in libelle_parametre:
+        srting+=i+'/'
+    print(srting)
     nombre=[i for i in range(len(libelle_parametre))]
    
             
 
 
     
-    return render(request, 'affichage/tableau.html',{"n":nombre,"l":libelle_parametre})
+    return render(request, 'affichage/tableau.html',{"n":nombre,"l":srting})
 #==========================================(debug)=========================================
 def new_base(req):
     return render(req,'affichage/new_base.html')
