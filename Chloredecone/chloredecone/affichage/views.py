@@ -144,13 +144,9 @@ def Tableau(request,id):
     chaine_de_caractere_des_libelle=""
     for i in libelle_parametre:
         chaine_de_caractere_des_libelle+=i+'/'
-    print(len(n))
-    
-    nombre_dechaque_libelle=n
-   
-            
-
-
+    nombre_dechaque_libelle=""
+    for i in n:
+        nombre_dechaque_libelle+=str(i)+"/"
     
     return render(request, 'affichage/tableau.html',{"n":nombre_dechaque_libelle,"l":chaine_de_caractere_des_libelle})
 #==========================================(debug)=========================================
