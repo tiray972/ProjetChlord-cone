@@ -132,27 +132,27 @@ def presentation(request):
     
     map={'m1':mapmaxmin,'m2':surfandsouter,'m3':littoraux}
     return render(request,'affichage/amap.html',map)
-#==========================================(debug)=========================================
+#==========================================(graphique chart.js)=========================================
 def Tableau(request,id):
     importation=releve_Ville.objects.get(id=id)
     listjson=importation.data["tab3"]['data']
-    # print(listjson)
+   
     dfjson=pd.DataFrame(listjson)
-    # print(dfjson)
-    # print((dfjson['libelle_parametre'].value_counts()).keys())
+    
     libelle_parametre=[i for i in (dfjson['libelle_parametre'].value_counts()).keys()]
-    # libelle_parametre=[i for i in (dfjson['libelle_parametre'].value_counts()).values()]
-    srting=""
+    n=[i for i in (dfjson['libelle_parametre'].value_counts())]
+    chaine_de_caractere_des_libelle=""
     for i in libelle_parametre:
-        srting+=i+'/'
-    print(srting)
-    nombre=[i for i in range(len(libelle_parametre))]
+        chaine_de_caractere_des_libelle+=i+'/'
+    print(len(n))
+    
+    nombre_dechaque_libelle=n
    
             
 
 
     
-    return render(request, 'affichage/tableau.html',{"n":nombre,"l":srting})
+    return render(request, 'affichage/tableau.html',{"n":nombre_dechaque_libelle,"l":chaine_de_caractere_des_libelle})
 #==========================================(debug)=========================================
 def new_base(req):
     return render(req,'affichage/new_base.html')
