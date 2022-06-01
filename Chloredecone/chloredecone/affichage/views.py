@@ -80,15 +80,16 @@ def search(request):
         
             print(type(JSON[elm]),'<-----------------------------------')
         """
-        #création du pdf 
-        # pdf=summary_pdf()                       #Création d'un objet pdf qui sera mit en base de donné
-        # titre=str(datetime.datetime.today().date())   # création du titre du PDF                           
-        # pdf.titre=titre                           
-        #                                           # création du pdf en lui meme en fonction de la ville souhaité
+        
+        pdf=summary_pdf()                       #Création d'un objet pdf qui sera mit en base de donné
+        titre=str(datetime.datetime.today().date())   # création du titre du PDF                           
+        pdf.titre=titre
+        pdf.ville=recherche                           
+                                                  # création du pdf en lui meme en fonction de la ville souhaité
         
          
-        # pdf.save()                           # puis on le met en base de donné
-        id_pdf=33                          # très important on récupère son id
+        pdf.save()                           # puis on le met en base de donné
+        id_pdf=pdf.id                       # très important on récupère son id
         #Instanciation des 3 tableaux de données
         T1=None
         T2=None
@@ -159,7 +160,7 @@ def upload_file(request, id,id_json):
     print(json.data['tab1'])
     titre=str(datetime.datetime.today().date())   # création du titre du PDF                           
     pdf.titre=titre                           
-    make_pdf(titre,recherche)               # création du pdf en lui meme en fonction de la ville souhaité
+    make_pdf(titre,pdf.ville)               # création du pdf en lui meme en fonction de la ville souhaité
         
     check="ville/tmp/"+titre+".pdf"          #Définition d'un chemin relatif 
     print(check,"<---------------------")    #Debug
@@ -169,9 +170,9 @@ def upload_file(request, id,id_json):
         pdf.file = File(f, name=path.name)   #on enregistre le pdf dans dans l'objet pdf
         pdf.save()           
      # récupération du bon pdf grace a l'ID prit dans le lien(faire un hash de l'id pour éviter toute modification de l'url)
-    fl_path = project.file.path             #récupération du chemin du fichier 
+    fl_path = pdf.file.path             #récupération du chemin du fichier 
     print(fl_path,"---------------")         # degug
-    filename = project.file.name            # récupération du nom du fichier
+    filename = pdf.file.name            # récupération du nom du fichier
     with open(fl_path, 'rb') as pdf:        #ouverture du fichier
                 response = HttpResponse(pdf.read(), content_type='application/pdf') #création de la réponse en selectionant le mime type de fichier a retourné       
                 response['Content-Disposition'] = 'attachment ; filename=%s' % filename        

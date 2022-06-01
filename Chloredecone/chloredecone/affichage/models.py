@@ -43,6 +43,7 @@ class summary_pdf(models.Model):
     titre = models.CharField(default="",max_length=100)
     file=models.FileField(upload_to="ville/pdf/")
     id= models.AutoField(primary_key=TRUE)
+    ville=models.CharField(default='',max_length=200)
     
     def __str__(self):
         return f'{self.titre}'

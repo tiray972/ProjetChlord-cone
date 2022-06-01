@@ -11,7 +11,7 @@ class TitreAdmin(admin.ModelAdmin):
 class releve_Ville_admin(admin.ModelAdmin):
     list_display = ("data","nom")
 class pdf_admin(admin.ModelAdmin):
-    list_display=("titre","file")
+    list_display=("titre","file","ville")
 
 
 admin.site.register(Band, BandAdmin) # nous modifions cette ligne, en ajoutant un deuxième argument
