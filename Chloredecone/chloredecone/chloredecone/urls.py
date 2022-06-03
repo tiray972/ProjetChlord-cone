@@ -31,7 +31,7 @@ urlpatterns = [
     path('upload_csv2/<int:id>/',views.upload_csv2),  # maintenant tout le monde peut modifier l'url depuis le navigateur et mettre l'id de son choix
     path('upload_csv3/<int:id>/',views.upload_csv3), #une solution est de hasher l'id
     path('search/',views.search,name='recherche'),
-    path('graphMol/',views.graphMol,name='graphMol'),
+    path('graphMol/<int:id>/',views.graphMol,name='graphMol'),
     path('map/',views.maping,name='map'),
     path('g/',views.graph,name='graph'),
     path('presentation/',views.presentation,name='presentation'),

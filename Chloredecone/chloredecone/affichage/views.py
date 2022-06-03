@@ -156,11 +156,12 @@ def Tableau(request,id):
         nombre_dechaque_libelle+=str(i)+"/"
     
     
-    return render(request, 'affichage/tableau.html',{"n":nombre_dechaque_libelle,"l":chaine_de_caractere_des_libelle,"molecules":libelle_parametre})
+    return render(request, 'affichage/tableau.html',{"n":nombre_dechaque_libelle,"l":chaine_de_caractere_des_libelle,"molecules":libelle_parametre,"id":id})
 
 
 #==========================================(graphique molécule seletioner)=========================================
-def graphMol(request):
+def graphMol(request,id):
+    importation=releve_Ville.objects.get(id=id)
     if request.method == 'POST':
         elmAnaliser=[]
         for key in request.POST.keys():

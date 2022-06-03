@@ -38,7 +38,7 @@
             graphique(a,b);
         </script>
         <section>
-            <form action="{% url 'graphMol' %}" method=POST>
+            <form action="../../graphMol/{{id}}/" method=POST>
             {% csrf_token %}
             <div class="container">
                 <div class="row">
