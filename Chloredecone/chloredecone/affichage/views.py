@@ -162,14 +162,24 @@ def Tableau(request,id):
 #==========================================(graphique molécule seletioner)=========================================
 def graphMol(request,id):
     importation=releve_Ville.objects.get(id=id)
+    df=pd.DataFrame(importation.data["tab3"]['data'])
+    print(df.keys())
+    ch=''
+    ph=''
     if request.method == 'POST':
         elmAnaliser=[]
         for key in request.POST.keys():
-            print(request.POST[key],key)
+            # print(request.POST[key],key)
             if request.POST[key]=="1":
                 elmAnaliser.append(key)
-        print(elmAnaliser)
-    return render(request, 'affichage/graphmol.html')
+        for i in df.itertuples():
+            for elm in elmAnaliser:
+                if i.libelle_parametre== elm:
+                    ch+=str(i.resultat)+'/'
+                    ph+='relever de '+str(i.libelle_parametre)+" a "+str(i.heure_prelevement)+" le "+str(i.date_prelevement)+'/'
+        print(ch)
+        # print(elmAnaliser)
+    return render(request, 'affichage/graphmol.html',{'n':ch,'l':ph})
 
 
 #==========================================(debug)=========================================
