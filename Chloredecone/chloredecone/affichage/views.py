@@ -3,6 +3,7 @@ import csv
 import encodings
 import imp
 from pickle import NONE
+from re import T
 from tkinter import Variable
 import pandas as pd
 from mmap import PAGESIZE
@@ -41,6 +42,7 @@ def hello(request):
 def search(request):
     #détection de la meethode
     if request.method == 'POST':
+        print(request.POST)
         #Récupération et traitement des données du POST
         recherche= request.POST['recherche_page']
         date_debut=request.POST['date_deb']
@@ -90,20 +92,25 @@ def search(request):
          
         pdf.save()                           # puis on le met en base de donné
         id_pdf=pdf.id                       # très important on récupère son id
-        #Instanciation des 3 tableaux de données
-        T1=None
-        T2=None
-        T3=None
+        
+        
         
         # séléction des type de recherche 
         if ss_terr or surface_terr or eau_surface:
             choix=0
             if ss_terr:
                 T1=tabl(3, str(date_debut) , str(date_fin) ,code_insee= insee_code) #création des tableaux
+            else:
+                T1={'data':[]}
             if surface_terr:
                 T2=tabl(2, str(date_debut) , str(date_fin) )
+            else:
+                T2={'data':[]}
+               
             if eau_surface:
                 T3=tabl(1, str(date_debut) , str(date_fin) , code_insee= insee_code)
+            else:
+                T3={'data':[]}
             notre_json=releve_Ville()                       #création de l'objet JSON
             notre_json.data={"tab1":T1,"tab2":T2,"tab3":T3} # Incorporation des 3 tableau dans l'objet
             notre_json.nom='votrejson'   
@@ -148,7 +155,22 @@ def Tableau(request,id):
     for i in n:
         nombre_dechaque_libelle+=str(i)+"/"
     
-    return render(request, 'affichage/tableau.html',{"n":nombre_dechaque_libelle,"l":chaine_de_caractere_des_libelle})
+    
+    return render(request, 'affichage/tableau.html',{"n":nombre_dechaque_libelle,"l":chaine_de_caractere_des_libelle,"molecules":libelle_parametre})
+
+
+#==========================================(graphique molécule seletioner)=========================================
+def graphMol(request):
+    if request.method == 'POST':
+        elmAnaliser=[]
+        for key in request.POST.keys():
+            print(request.POST[key])
+            if request.POST[key]=="1":
+                elmAnaliser.append(key)
+        print(elmAnaliser)
+    return render(request, 'affichage/graphmol.html')
+
+
 #==========================================(debug)=========================================
 def new_base(req):
     return render(req,'affichage/new_base.html')
