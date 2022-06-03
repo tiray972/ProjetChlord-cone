@@ -28,29 +28,7 @@
             
             graphique(a,b);
         </script>
-        <form action="{% url 'graphMol' %}" method=POST>
-            {% csrf_token %}
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-light">voir graph des molécules séléctioné</button>
-                
-            </div>
-            <div class="col-md-3">
-                <fieldset class="row mb-2">
-                    <legend class="col-form-label col-sm-2 pt-0 text-light">Radios</legend>
-                    <div class="col-sm-10">
-                        {%for molecule in molecules%}  
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="{{molecule}}" id="gridRadios1" value="1" checked>
-                        <label class="form-check-label text-light" for="gridRadios1">
-                        {{molecule}}
-                        </label>
-                        {%endfor%}
-                    
-                    </div>
-                </fieldset>
-                
-            </div>
-        </form>
+        
     </body>
 
     {% endblock %}

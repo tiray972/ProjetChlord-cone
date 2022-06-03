@@ -35,6 +35,9 @@ class releve_Ville(models.Model):
     data= models.JSONField()
     nom=models.CharField(default="",max_length=100)
 
+class mol_rechercher(models.Model):
+    data= models.JSONField()
+    nom=models.CharField(default="",max_length=100)
 
 
     def __str__(self):
