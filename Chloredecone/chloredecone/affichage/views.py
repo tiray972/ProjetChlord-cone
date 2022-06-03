@@ -164,7 +164,7 @@ def graphMol(request):
     if request.method == 'POST':
         elmAnaliser=[]
         for key in request.POST.keys():
-            print(request.POST[key])
+            print(request.POST[key],key)
             if request.POST[key]=="1":
                 elmAnaliser.append(key)
         print(elmAnaliser)
