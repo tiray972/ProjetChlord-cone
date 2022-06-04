@@ -16,4 +16,23 @@ function graphique(tritres,donne){
             }]
         }
     })
+};
+const pieCanvas = document.getElementById("pieCanvas");
+function graphiquecam(tritres,donne){
+    const pieChart = new Chart(pieCanvas,{
+        type: "pie",
+        data:{
+            labels:tritres,
+            datasets:[{
+                data:donne,
+                backgroundColor:[
+                    "crimson",
+                    "lightgreen",
+                    "lightblue",
+                    "violet"
+                ]
+
+            }]
+        }
+    })
 }
