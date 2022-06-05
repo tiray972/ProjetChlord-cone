@@ -42,7 +42,7 @@ def hello(request):
 def search(request):
     #détection de la meethode
     if request.method == 'POST':
-        print(request.POST)
+        
         #Récupération et traitement des données du POST
         recherche= request.POST['recherche_page']
         date_debut=request.POST['date_deb']
@@ -117,6 +117,7 @@ def search(request):
             notre_json.save()                               #enregistrement en base de donné (sans cela impossible d'nvoyer les donnés a la contruction du csv)
             id = notre_json.id                              #récupération de l'id du JSON
                                         #débug
+            
             return render(request,'affichage/search.html',{"data":recherche,
                                                        'ville':NONE,'JSON':NONE,
                                                        "id":id,"id_pdf":id_pdf,"tab1":T1['data'],"tab2":T2['data'],"tab3":T3['data']})

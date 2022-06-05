@@ -66,18 +66,32 @@ def tabl(choix,dateDeb,dateFin,dep='972',code_insee="97230"): #les paarrametre s
         
         try:    
             
-            return json.loads(requests.get(eausurface,dico).text)# la nous utilisons la fonction donné json créé au prealable 
+            h=json.loads(requests.get(eausurface,dico).text)# la nous utilisons la fonction donné json créé au prealable 
+            print(h)
+            if h['data']:
+                return h
+            else:
+                return {'data':[]}
         except:
-            return None
+            return  {'data':[]}
     if choix==2:
         try:    
-            return json.loads(requests.get(littoraux,dico1).text)# nous retournous unique ment les donnée qui est une liste de json qui a pour clé data
+            h= json.loads(requests.get(littoraux,dico1).text)# nous retournous unique ment les donnée qui est une liste de json qui a pour clé data
+            if h['data']:
+                return h
+            else:
+                return {'data':[]}
         except:
-            return None
+            return  {'data':[]}
     if choix==3:
         try:    
-            return json.loads(requests.get(eausouter,dicosouter).text)#
+            h= json.loads(requests.get(eausouter,dicosouter).text)#
+            
+            if h['data']:
+                return h
+            else:
+                return {'data':[]}
         except:
-            return None
+            return  {'data':[]}
 
 
