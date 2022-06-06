@@ -1,4 +1,4 @@
-#project Chloredecone
+##project Chloredecone
 ##prerequit
 avant tout il faut installer les package avec la commande suivante dans le terminal
 ```
