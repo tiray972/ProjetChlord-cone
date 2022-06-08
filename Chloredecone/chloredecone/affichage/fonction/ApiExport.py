@@ -67,7 +67,7 @@ def tabl(choix,dateDeb,dateFin,dep='972',code_insee="97230"): #les paarrametre s
         try:    
             
             h=json.loads(requests.get(eausurface,dico).text)# la nous utilisons la fonction donné json créé au prealable 
-            print(h)
+            # print(h)
             if h['data']:
                 return h
             else:

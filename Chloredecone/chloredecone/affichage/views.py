@@ -111,8 +111,9 @@ def search(request):
                 T3=tabl(1, str(date_debut) , str(date_fin) , code_insee= insee_code)
             else:
                 T3={'data':[]}
+            meta={"date_debut":date_debut,"date_fin":date_fin ,"ville":recherche,"T1":T1['data'] != [],"T2":T2['data'] != [],"T3":T3['data'] != []}
             notre_json=releve_Ville()                       #création de l'objet JSON
-            notre_json.data={"tab1":T1,"tab2":T2,"tab3":T3} # Incorporation des 3 tableau dans l'objet
+            notre_json.data={"tab1":T1,"tab2":T2,"tab3":T3,"meta":meta} # Incorporation des 3 tableau dans l'objet
             notre_json.nom='votrejson'   
             notre_json.save()                               #enregistrement en base de donné (sans cela impossible d'nvoyer les donnés a la contruction du csv)
             id = notre_json.id                              #récupération de l'id du JSON
@@ -190,10 +191,9 @@ def new_base(req):
 def upload_file(request, id,id_json):
     pdf=summary_pdf.objects.get(id=id) 
     json=releve_Ville.objects.get(id=id_json)                     #Création d'un objet pdf qui sera mit en base de donné
-    print(json.data['tab1'])
     titre=str(datetime.datetime.today().date())   # création du titre du PDF                           
     pdf.titre=titre                           
-    make_pdf(titre,pdf.ville)               # création du pdf en lui meme en fonction de la ville souhaité
+    make_pdf(titre,pdf.ville,json.data)               # création du pdf en lui meme en fonction de la ville souhaité
         
     check="ville/tmp/"+titre+".pdf"          #Définition d'un chemin relatif 
     print(check,"<---------------------")    #Debug
