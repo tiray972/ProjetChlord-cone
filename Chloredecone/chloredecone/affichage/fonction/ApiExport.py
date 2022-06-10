@@ -60,7 +60,7 @@ def tabl(choix,dateDeb,dateFin,dep='972',code_insee="97230"): #les paarrametre s
     eausouter="https://hubeau.eaufrance.fr/api/v1/qualite_nappes/analyses"
     # httpjson='https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/analyse_pc'
     dico={'code_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin,'size':5000,'code_commune':code_insee}# eau surface
-    dico1={}# litoraux
+    dico1={'date_min_prel':dateDeb,'date_max_prel':dateFin}# litoraux
     dicosouter={'num_departement':dep,'date_debut_prelevement':dateDeb,'date_fin_prelevement':dateFin,"code_insee_actuel":code_insee}#eau ss-terrain
     if choix==1:
         

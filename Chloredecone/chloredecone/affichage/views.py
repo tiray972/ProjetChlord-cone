@@ -103,7 +103,7 @@ def search(request):
             else:
                 T1={'data':[]}
             if surface_terr:
-                T2=tabl(2, str(date_debut) , str(date_fin) )
+                T2=tabl(2, str(date_debut) , str(date_fin) ) #litoraux
             else:
                 T2={'data':[]}
                
