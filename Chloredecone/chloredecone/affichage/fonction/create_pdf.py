@@ -1,6 +1,10 @@
 from fpdf import FPDF
 import datetime
 import os
+import pandas as pd
+from matplotlib import pyplot as plt
+
+
 width = 210
 height = 297
 ressource="affichage/fonction/resources/"
@@ -53,7 +57,7 @@ def bandM(pdf):
 
 #création du pdf    
 def make_pdf(titre,ville,data):
-    # print((dict(data['tab2']['data'][12]))['uri_taxons_suivis'],"<-------------------")
+    print((data['tab2']['data'][12]).keys(),"<-------------------")
     
     pdf =PDF('P','mm','Letter')
     pdf.set_font('Arial','B',16) 
@@ -72,10 +76,14 @@ def make_pdf(titre,ville,data):
 
     #Partie Litoraux
     if (data['meta']['T2']):
+        var_litoraux= pd.DataFrame(data['tab2']['data'])
+        print(var_litoraux)
         pdf.add_page()
         fond_page2(pdf)
         pdf.add_page()
         bandB(pdf)
+        pdf.add_page()
+        invbandB(pdf)
 
     #Partie eau sous téraine
     if (data['meta']['T1']):
@@ -83,14 +91,36 @@ def make_pdf(titre,ville,data):
         fond_page3(pdf)
         pdf.add_page()
         bandM(pdf)
-        pdf.add_page()
-        invbandB(pdf)
-    #Partie eau de surface
+        var_sous_terr= pd.DataFrame(data['tab1']['data'])
+        print(var_sous_terr)
+        date=[]
+        res=[]
+        for i in var_sous_terr.itertuples():
+            print(i)
+            # if i.libelle_parametre =='Dichlorobenzène-1,4':
+            #     print(i.libelle_parametre,end='')
+            #     print( ' ',end='')
+            #     print( i.resultat)
+            #     date.append(i.heure_prelevement+i.date_prelevement)
+            #     res.append(i.resultat)
+# 
+        # plt.switch_backend('AGG')
+        # plt.figure()
+        # plt.plot(date,res,label='hold')
+        # plt.show()
+        
+        
+        
+    # Partie eau de surface
     if (data['meta']['T3']):
+        var_eau_surface= pd.DataFrame(data['tab3']['data'])
+        print(var_eau_surface)
         pdf.add_page()
         fond_page1(pdf)
         pdf.add_page()
         band(pdf)
+        # for i in range(len(data['tab3']['data'])):
+            # print(data['tab3']['data'][i]['libelle_parametre'],data['tab3']['data'][i]['resultat'])
         
     
     output_path="ville/tmp/"+titre+'.pdf'
