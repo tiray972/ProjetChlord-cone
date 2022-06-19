@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'newTheme',
+    'acounts',
+    'django_browser_reload',
+    'tailwind',
     'affichage',
 ]
 
@@ -48,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'chloredecone.urls'
@@ -69,7 +74,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'chloredecone.wsgi.application'
-
+INTERNAL_IPS =[
+    "127.0.0.1",
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -111,6 +118,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"#'/usr/bin/npm'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -124,3 +132,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'acounts.Client'
+TAILWIND_APP_NAME = 'newTheme'
