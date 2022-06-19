@@ -17,6 +17,7 @@ from unicodedata import name
 from django.contrib import admin
 from django.urls import path
 #from Chloredecone.chloredecone.affichage.views import search
+from acounts import views as process_acounts
 from affichage import views
 #création de toute les url de l'application
 urlpatterns = [
@@ -31,6 +32,12 @@ urlpatterns = [
     path('upload_csv2/<int:id>/',views.upload_csv2),  # maintenant tout le monde peut modifier l'url depuis le navigateur et mettre l'id de son choix
     path('upload_csv3/<int:id>/',views.upload_csv3), #une solution est de hasher l'id
     path('search/',views.search,name='recherche'),
+    #comptes================================
+    path('log/', process_acounts.log,name='login'),
+    path('register/', process_acounts.inscription,name='inscr'),
+    path('deconexion/', process_acounts.deco,name='deco'),
+
+    #================================
     path('graphMol/<int:id>/',views.graphMol,name='graphMol'),
     path('map/',views.maping,name='map'),
     path('g/',views.graph,name='graph'),

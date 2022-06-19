@@ -1,6 +1,6 @@
 
 # from bs4 import BeautifulSoup
-from msilib.schema import tables
+
 from tkinter import N
 from tkinter.messagebox import NO
 from django import http
