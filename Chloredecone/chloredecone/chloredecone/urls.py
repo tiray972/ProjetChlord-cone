@@ -15,12 +15,13 @@ Including another URLconf
 """
 from unicodedata import name
 from django.contrib import admin
-from django.urls import path
+from django.urls import path ,include
 #from Chloredecone.chloredecone.affichage.views import search
 from acounts import views as process_acounts
 from affichage import views
 #création de toute les url de l'application
 urlpatterns = [
+    path('__reload__/',include("django_browser_reload.urls")),
     path('',views.hello,name='index'),
     path('admin/', admin.site.urls),
     path('hello/',views.hello),

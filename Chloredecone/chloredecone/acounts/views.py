@@ -10,7 +10,7 @@ def log(req):
         verif = authenticate(username=nom,password=password)
         if verif:
             login(req,verif)
-            return redirect('home')
+            return redirect('index')
         else:
             return render(req,'acounts/login2.html',{'alert':1})
 
@@ -34,10 +34,10 @@ def inscription(req):
                                     password=password)
 
             login(req, user)
-            return redirect('home')
+            return redirect('index')
     
     return render(req,'acounts/inscription.html')
 
 def deco(req):
     logout(req)
-    return redirect('home')
+    return redirect('index')
