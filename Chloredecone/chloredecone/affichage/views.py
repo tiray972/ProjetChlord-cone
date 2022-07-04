@@ -30,6 +30,15 @@ from affichage.forms import ContactUsForm,RechercheForm
 
 #page d'acceuil
 def hello(request):
+    with open("affichage/static/jour.txt","r") as jour:
+        text=jour.readline()
+        text= datetime.date(day=int(text[8:10]),month=int(text[5:7]),year=int(text[0:4]))
+    if text.month == datetime.date.today().month:  
+        
+        with open("affichage/static/jour.txt","r+") as jour:
+            jour.write(str(text.year)+"-0"+str(int(text.month)+1)+"-0"+str(text.day))
+
+    
     #ajout des difféérentes année(obselète) 
     date  = [1990+i for i in range(32)] 
     liste=[]
