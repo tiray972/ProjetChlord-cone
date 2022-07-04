@@ -1,9 +1,13 @@
 #importation
+from calendar import month
 import csv
 import encodings
 import imp
+from glob import glob
+from os import remove
 from pickle import NONE
 from re import T
+from this import d
 from tkinter import Variable
 import pandas as pd
 from mmap import PAGESIZE
@@ -33,10 +37,33 @@ def hello(request):
     with open("affichage/static/jour.txt","r") as jour:
         text=jour.readline()
         text= datetime.date(day=int(text[8:10]),month=int(text[5:7]),year=int(text[0:4]))
-    if text.month == datetime.date.today().month:  
-        
+    if int(text.month)+1 == int(datetime.date.today().month) :  
+        py_files = glob('../chloredecone/ville/pdf/*.pdf')
+
+        for py_file in py_files:
+            try:
+              remove(py_file)
+            except OSError as e:
+               print(f"Error:{e.strerror}")
+        py_files = glob('../chloredecone/ville/tmp/*.pdf')
+
+        for py_file in py_files:
+            try:
+              remove(py_file)
+            except OSError as e:
+               print(f"Error:{e.strerror}")
+
         with open("affichage/static/jour.txt","r+") as jour:
-            jour.write(str(text.year)+"-0"+str(int(text.month)+1)+"-0"+str(text.day))
+            day=int(text.day)
+            month=int(text.month)+1 
+            year=str(text.year)
+            if month  <10:
+                month ="0"+str(month)
+            month = str(month)
+            if day  <10:
+                day ="0"+str(day)
+            day = str(day)
+            jour.write(year+"-"+month+"-"+day)
 
     
     #ajout des difféérentes année(obselète) 
