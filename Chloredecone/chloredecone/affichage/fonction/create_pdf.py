@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 width = 210
 height = 297
 ressource="affichage/fonction/resources/"
-day=str(datetime.datetime.today().date()) 
+day=str(datetime.datetime.today().date())
 class PDF(FPDF):
     def header(self):
         self.image(ressource+'uag.jpg',10,8,25)
@@ -57,7 +57,7 @@ def bandM(pdf):
 
 #création du pdf    
 def make_pdf(titre,ville,data):
-    print((data['tab2']['data'][12]).keys(),"<-------------------")
+    # print((data['tab2']['data'][12]).keys(),"<-------------------")
     
     pdf =PDF('P','mm','Letter')
     pdf.set_font('Arial','B',16) 
@@ -77,6 +77,26 @@ def make_pdf(titre,ville,data):
     #Partie Litoraux
     if (data['meta']['T2']):
         var_litoraux= pd.DataFrame(data['tab2']['data'])
+        var_litoraux.to_csv(path_or_buf= None,
+                 sep= ",",
+                 na_rep= "",
+                 float_format= None,
+                 columns= None,
+                 header= True,
+                 index= True,
+                 index_label= None,
+                 mode= "w",
+                 encoding= None,
+                 compression= "infer",
+                 quoting= None,
+                 quotechar= '""',
+                 line_terminator= None,
+                 chunksize= None,
+                 date_format= None,
+                 doublequote= True,
+                 escapechar= None,
+                 decimal= "."
+                 ) 
         print(var_litoraux)
         pdf.add_page()
         fond_page2(pdf)
@@ -92,11 +112,12 @@ def make_pdf(titre,ville,data):
         pdf.add_page()
         bandM(pdf)
         var_sous_terr= pd.DataFrame(data['tab1']['data'])
-        print(var_sous_terr)
+        # print(var_sous_terr)
         date=[]
         res=[]
         for i in var_sous_terr.itertuples():
-            print(i)
+            # print(i)
+            pass
             # if i.libelle_parametre =='Dichlorobenzène-1,4':
             #     print(i.libelle_parametre,end='')
             #     print( ' ',end='')
@@ -114,7 +135,7 @@ def make_pdf(titre,ville,data):
     # Partie eau de surface
     if (data['meta']['T3']):
         var_eau_surface= pd.DataFrame(data['tab3']['data'])
-        print(var_eau_surface)
+        # print(var_eau_surface)
         pdf.add_page()
         fond_page1(pdf)
         pdf.add_page()
